@@ -55,7 +55,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		viewPager.setAdapter(new fragmentAdapter(getSupportFragmentManager()));
+		viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
 
 		/* Create the navigation tabs and add them to the action bar */
 		for(String tabName : TABNAMES){
@@ -111,39 +111,4 @@ public class MainActivity extends FragmentActivity implements TabListener {
         inflater.inflate(R.menu.main_activity_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
-}
-
-/* Adapter will take data and display it to screen */
-class fragmentAdapter extends FragmentPagerAdapter{
-
-	/* Constructor */
-	public fragmentAdapter(FragmentManager fm) {
-		super(fm);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public Fragment getItem(int arg0) {
-		/* Returns the UI for the requested fragment */
-		/* The corresponding .java class handles the UI functionality */
-		Fragment fragment = null;
-		switch(arg0){
-		case 0:
-			return fragment = new CounterFragment();
-		case 1:
-			return fragment = new SavedCounterFragment();
-		case 2:
-			return fragment = new CounterSummaryFragment();
-		}
-		
-		/* This return should never execute */
-		// TODO error checking to ensure following line doesn't execute
-		return fragment;
-	}
-
-	@Override
-	public int getCount() {
-		return MainActivity.NUMBEROFTABS;
-	}
-	
 }
