@@ -54,9 +54,12 @@ public class ActionBarHandler extends MainActivity {
 	}
 	
 	
-	private void resetCounter() {
+	private void resetCounter() {		
 		// TODO ask if sure want to reset
 		counter.resetCurrentCount();
+		// Create a refresh method inside counter fragment
+		// refresh the fragment.
+		CounterFragment.refreshDisplay();
 		Toast.makeText(context, String.format("%s has been reset", openCounterName), 
 				Toast.LENGTH_SHORT).show();
 	}

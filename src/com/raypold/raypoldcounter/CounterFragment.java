@@ -32,9 +32,9 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 	SharedPreferences preferences, savedCounters;
 	
 	Preferences userPreferences;
-	Counter openCounter;
+	static Counter openCounter;
 	
-	View inflatedView;
+	static View inflatedView;
 		
 	public CounterFragment() {
 		super();
@@ -85,16 +85,21 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		
 	}
 
-	public void setTextDisplay(){				
+	public static void setTextDisplay() {				
 		/* findViewById() doesn't work inside a fragment. Must use on inflatedView */
 		TextView counterTextView = (TextView) inflatedView.findViewById(R.id.counterNameView);
 		counterTextView.setText(workingCounterName);
 	}
 	
-	public void displayCount(){
+	public static void displayCount() {
 		String currentCount = String.valueOf(openCounter.getCurrentCount());	
 		TextView countTextView = (TextView) inflatedView.findViewById(R.id.countDisplay);
 		countTextView.setText(currentCount);
+	}
+	
+	public static void refreshDisplay() {
+		setTextDisplay();
+		displayCount();
 	}
 	
 	@Override

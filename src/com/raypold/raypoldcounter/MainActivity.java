@@ -16,7 +16,6 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -42,7 +41,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 											};
 	
 	public ActionBar actionBar;
-	public ViewPager viewPager;
+	public static ViewPager viewPager;
 	public static SharedPreferences preferences, savedCounters;
 	
 	@Override
