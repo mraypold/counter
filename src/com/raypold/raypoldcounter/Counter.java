@@ -10,6 +10,7 @@ public class Counter {
 	
 	private SharedPreferences counterFile;
 	
+	// The sharedPreferences file is the file the holds all counters and their count
 	public Counter(String name, SharedPreferences file) {
 		setCounterName(name);
 		setCounterFile(file);
@@ -30,6 +31,7 @@ public class Counter {
 	
 	public void resetCurrentCount() {
 		setCurrentCount(0);
+		saveCount();
 	}
 	
 	public String getCounterName() {

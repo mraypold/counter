@@ -23,7 +23,10 @@ import android.widget.TextView;
 
 public class CounterFragment extends Fragment implements View.OnClickListener {
 	
+	/* Names of the sharedPreferences files */
 	public static final String USERPREFERENCES = "userPreferences";
+	public static final String SAVEDCOUNTERS = "savedCounters";
+	
 	public static String workingCounterName;
 	
 	SharedPreferences preferences, savedCounters;
@@ -47,7 +50,7 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		userPreferences = new Preferences(preferences);
 		workingCounterName = userPreferences.getLastOpenCounter();
 		
-		savedCounters = this.getActivity().getSharedPreferences(workingCounterName, 0);
+		savedCounters = this.getActivity().getSharedPreferences(SAVEDCOUNTERS, 0);
 		openCounter = new Counter(workingCounterName, savedCounters);
 
 		setTextDisplay();

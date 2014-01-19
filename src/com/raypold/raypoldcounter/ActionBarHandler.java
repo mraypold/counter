@@ -1,25 +1,31 @@
 /*
  * Author: Michael Raypold
  * 
- * ActionBarHandler is responsible for giving functionality to the actionbar.
+ * ActionBarHandler is responsible for giving functionality to the action bar.
  */
 package com.raypold.raypoldcounter;
 
 import android.content.Context;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-public class ActionBarHandler {
+public class ActionBarHandler extends MainActivity {
 
-	MenuItem item;
-	View view;
-	Context context;
+	private MenuItem item;
+	private Context context;
+	private Preferences userPreferences;
+	private Counter counter;
+	private String openCounterName;
 	
 	public ActionBarHandler(MenuItem item, Context applicationContext) {
 		super();
 		this.item = item;
 		this.context = applicationContext;
+		this.userPreferences = new Preferences(MainActivity.preferences);
+		
+		setOpenCounterName(); // Must be called before setting counter.
+		
+		this.counter = new Counter(openCounterName, MainActivity.savedCounters);
 	}
 	
 	public boolean getAction() {
@@ -43,14 +49,22 @@ public class ActionBarHandler {
 		return false;
 	}
 	
-	private void resetCounter() {
-		Toast.makeText(context, "Counter has been reset", Toast.LENGTH_SHORT).show();
-
+	private void setOpenCounterName() {
+		this.openCounterName = userPreferences.getLastOpenCounter();
 	}
 	
+	
+	private void resetCounter() {
+		// TODO ask if sure want to reset
+		counter.resetCurrentCount();
+		Toast.makeText(context, String.format("%s has been reset", openCounterName), 
+				Toast.LENGTH_SHORT).show();
+	}
+	
+	// Make it show the old and new name?
 	private void renameCounter() {
-		Toast.makeText(context, "Counter has been renamed", Toast.LENGTH_SHORT).show();
-
+		Toast.makeText(context, String.format("%s has been renamed", openCounterName), 
+				Toast.LENGTH_SHORT).show();
 	}
 	
 	private void newCounter() {

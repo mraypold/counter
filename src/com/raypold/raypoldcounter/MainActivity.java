@@ -17,6 +17,7 @@ import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -42,13 +43,17 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	
 	public ActionBar actionBar;
 	public ViewPager viewPager;
-	public Context context;
+	public static SharedPreferences preferences, savedCounters;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
+
+		/* Open the sharedPreference files for the actionBar functions extended in ActionBarHandler */
+		preferences = getSharedPreferences("userPreferences", 0);
+		savedCounters = getSharedPreferences("savedCounters", 0);
 		
 		/* Create the action bar */
 		final ActionBar actionBar = getActionBar();
@@ -106,6 +111,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
         return super.onCreateOptionsMenu(menu);
     }
     
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		ActionBarHandler handler = new ActionBarHandler(item, getApplicationContext());
     	return handler.getAction();
