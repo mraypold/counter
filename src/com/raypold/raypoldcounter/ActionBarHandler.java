@@ -55,11 +55,10 @@ public class ActionBarHandler extends MainActivity {
 	
 	
 	private void resetCounter() {		
-		// TODO ask if sure want to reset
+		// TODO ask to confirm
 		counter.resetCurrentCount();
-		// Create a refresh method inside counter fragment
-		// refresh the fragment.
 		CounterFragment.refreshDisplay();
+		
 		Toast.makeText(context, String.format("%s has been reset", openCounterName), 
 				Toast.LENGTH_SHORT).show();
 	}
@@ -76,6 +75,10 @@ public class ActionBarHandler extends MainActivity {
 	}
 	
 	private void deleteCounter() {
+		// TODO ask to confirm
+		counter.deleteCounter();
+		CounterFragment.refreshDisplay();
+		
 		Toast.makeText(context, "Counter has been deleted", Toast.LENGTH_SHORT).show();
 
 	}

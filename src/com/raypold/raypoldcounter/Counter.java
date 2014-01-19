@@ -58,4 +58,10 @@ public class Counter {
 		editor.commit();
 	}
 	
+	public void deleteCounter() {
+		Editor editor = counterFile.edit();
+		editor.remove(counterName);
+		editor.commit();
+	}
+	
 }
