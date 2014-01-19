@@ -11,34 +11,31 @@
 
 package com.raypold.raypoldcounter;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CounterFragment extends Fragment implements View.OnClickListener {
 	
 	public static final String USERPREFERENCES = "userPreferences";
-	public static final String LASTCOUNTER = "lastOpenCounter";
-	public static final String DEFAULTNAME = "RenameThisCounter";
+	public static String workingCounterName;
 	
-	/* Simpler to declare these variable instead of passing them between methods each time */
-	int workingCount;
-	String workingCounterName;
+	SharedPreferences preferences, savedCounters;
+	
+	Preferences userPreferences;
+	Counter openCounter;
+	
 	View inflatedView;
 		
-	// TODO ? is this actually required? Doesn't java create it automatically?
 	public CounterFragment() {
-		// Required empty public constructor
+		super();
 	}
 
 	@Override
@@ -46,7 +43,14 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 			Bundle savedInstanceState) {
 		
 		inflatedView = inflater.inflate(R.layout.fragment_counter, container, false);
-				
+		
+		preferences = this.getActivity().getSharedPreferences(USERPREFERENCES, 0);
+		userPreferences = new Preferences(preferences);
+		workingCounterName = userPreferences.getLastOpenCounter();
+		
+		savedCounters = this.getActivity().getSharedPreferences(workingCounterName, 0);
+		openCounter = new Counter(workingCounterName, savedCounters);
+
 		setTextDisplay();
 		displayCount();
 		
@@ -56,9 +60,8 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 
 			@Override
 			public void onClick(View v) {
-				incrementCount(workingCounterName);
+				openCounter.incrementCount();
 				displayCount();
-				Log.d("MyTag", "Increment was pressed");
 			}
 			
 		});
@@ -69,9 +72,8 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 
 			@Override
 			public void onClick(View v) {
-				decrementCount(workingCounterName);
+				openCounter.decrementCount();
 				displayCount();
-				Log.d("MyTag", "Decrement was pressed");		
 			}
 			
 		});
@@ -81,76 +83,21 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		
 	}
 
-	/* Sets the name of the text to the last open counter */
-	public void setTextDisplay(){
-		/* Retrieve user preferences from the last session */	
-		SharedPreferences preferences = this.getActivity().getSharedPreferences(USERPREFERENCES ,0);
-		workingCounterName = preferences.getString(LASTCOUNTER, DEFAULTNAME);
-		
-		// TODO . If defaultname, then show help dialogue.
-		
-		
+	public void setTextDisplay(){				
 		/* findViewById() doesn't work inside a fragment. Must use on inflatedView */
 		TextView counterTextView = (TextView) inflatedView.findViewById(R.id.counterNameView);
 		counterTextView.setText(workingCounterName);
 	}
 	
-	/* Retrieve the count from the saved counters file and then display it */
 	public void displayCount(){
-		String currentCount = String.valueOf(getCount(workingCounterName));
-		
+		String currentCount = String.valueOf(openCounter.getCurrentCount());	
 		TextView countTextView = (TextView) inflatedView.findViewById(R.id.countDisplay);
-		
 		countTextView.setText(currentCount);
 	}
 	
-	/* Increment the count and store the date-time */
-	public void incrementCount(String counterName){
-		/* Increment the count in the savedCounters file */
-		SharedPreferences storedCounters = this.getActivity().getSharedPreferences("savedCounters", 0);
-		int oldCount = storedCounters.getInt(counterName, 0);
-		
-		Editor editor = storedCounters.edit();
-		editor.putInt(counterName, ++oldCount);
-		editor.commit();
-
-		/* Save the date-time of the increment */
-		// TODO
-		// call save count
-		
-	}
-	
-	/* Decrement the count and store the date-time */
-	public void decrementCount(String counterName){
-		/* Increment the count in the savedCounters file */
-		SharedPreferences storedCounters = this.getActivity().getSharedPreferences("savedCounters", 0);
-		int oldCount = storedCounters.getInt(counterName, 0);
-		
-		Editor editor = storedCounters.edit();
-		editor.putInt(counterName, --oldCount);
-		editor.commit();
-		
-		/* Save the date-time of the decrement */
-		// TODO
-		// call save count
-	}
-	
-	/* Retrieve the count for the specified counter name. If counter doesn't exist, return 0 */
-	public int getCount(String counterName){
-		SharedPreferences storedCounters = this.getActivity().getSharedPreferences("savedCounters", 0);
-		int currentCount = storedCounters.getInt(counterName, 0);
-		
-		return currentCount;
-	}
-	
-	public void saveCount(){
-		
-	}
-
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

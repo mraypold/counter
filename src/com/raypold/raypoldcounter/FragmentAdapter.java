@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 /* Adapter will take data and display it to screen */
 class FragmentAdapter extends FragmentPagerAdapter{
-
+	
 	/* Constructor */
 	public FragmentAdapter(FragmentManager fm) {
 		super(fm);
