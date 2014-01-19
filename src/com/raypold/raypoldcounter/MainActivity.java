@@ -16,14 +16,13 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class MainActivity extends FragmentActivity implements TabListener {
 
@@ -41,8 +40,9 @@ public class MainActivity extends FragmentActivity implements TabListener {
 											 "Summary" 
 											};
 	
-	ActionBar actionBar;
-	ViewPager viewPager;
+	public ActionBar actionBar;
+	public ViewPager viewPager;
+	public Context context;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -57,29 +57,25 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
 
+
 		/* Create the navigation tabs and add them to the action bar */
 		for(String tabName : TABNAMES){
 			actionBar.addTab(actionBar.newTab().setText(tabName).setTabListener(this));
 		}
 				
-		/* Syncs the the swiping and the highlighted tab view */
+		/* Synchronize the the swiping and the highlighted tab view */
 		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
 
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
 			public void onPageSelected(int arg0) {
-				/* When user swipes the arg0 is updated. This syncs the tab highlighted
-				 * with currently shown view resulting from the swipe.
-				 */
 				actionBar.setSelectedNavigationItem(arg0);			
 			}
 		});			
@@ -88,7 +84,6 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	/* Start: Define what happens when a tab is selected */
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -99,7 +94,6 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 	}
 	/* End: Define what happens when a tab is selected */
 	
@@ -111,4 +105,10 @@ public class MainActivity extends FragmentActivity implements TabListener {
         inflater.inflate(R.menu.main_activity_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
+    
+    public boolean onOptionsItemSelected(MenuItem item) {
+		ActionBarHandler handler = new ActionBarHandler(item, getApplicationContext());
+    	return handler.getAction();
+    }
+    
 }
