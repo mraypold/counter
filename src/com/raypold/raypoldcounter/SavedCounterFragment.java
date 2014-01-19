@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
@@ -12,6 +14,8 @@ import android.view.ViewGroup;
  */
 public class SavedCounterFragment extends Fragment {
 
+	View inflatedView;
+	
 	public SavedCounterFragment() {
 		// Required empty public constructor
 	}
@@ -20,8 +24,18 @@ public class SavedCounterFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_saved_counter, container,
+		inflatedView = inflater.inflate(R.layout.fragment_saved_counter, container,
 				false);
+		
+		String[] items = {"one", "two", "three"};
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), 
+				R.layout.summary_saved_counter, items);
+		
+		ListView list = (ListView)inflatedView.findViewById(R.id.listViewSavedCounters);
+		list.setAdapter(adapter);
+		
+		return inflatedView;
 	}
 
 }
