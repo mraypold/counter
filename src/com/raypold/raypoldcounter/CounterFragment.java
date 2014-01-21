@@ -98,6 +98,7 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 	}
 	
 	public static void refreshDisplay() {
+		// TODO. THis is incorrect. Need to update workingCounterName
 		setTextDisplay();
 		displayCount();
 	}

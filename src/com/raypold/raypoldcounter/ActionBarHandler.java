@@ -56,6 +56,11 @@ public class ActionBarHandler extends MainActivity {
 	
 	private void resetCounter() {		
 		// TODO ask to confirm
+		
+		AlertFragment alert = new AlertFragment();
+		alert.setMessage("Are you sure you want to reset the counter?");
+		alert.show(MainActivity.getFragment(), "confirmReset");
+		
 		counter.resetCurrentCount();
 		CounterFragment.refreshDisplay();
 		

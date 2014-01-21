@@ -15,6 +15,7 @@ package com.raypold.raypoldcounter;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,7 +33,6 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	 * in the event the the UI changes later on.
 	 * 
 	 * NUMBEROFTABS must be the same as the size of the TABNAMES list!
-	 * 
 	 */
 	public final static int NUMBEROFTABS = 3;
 	public final static String[] TABNAMES = {"Counter",
@@ -43,13 +43,16 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	public ActionBar actionBar;
 	public static ViewPager viewPager;
 	public static SharedPreferences preferences, savedCounters;
+	private static FragmentManager fragment;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
-
+		
+		setFragmentManager();
+		
 		/* Open the sharedPreference files for the actionBar functions extended in ActionBarHandler */
 		preferences = getSharedPreferences("userPreferences", 0);
 		savedCounters = getSharedPreferences("savedCounters", 0);
@@ -116,4 +119,17 @@ public class MainActivity extends FragmentActivity implements TabListener {
     	return handler.getAction();
     }
     
+    
+    /* Unfortunately, I couldn't get certain functions in ActionBarHandler to work without
+     * the following getters and setters.
+     * 
+     * Ideally, I think there is an alternative, more elegant way to code this.
+     */
+    public void setFragmentManager() {
+    	MainActivity.fragment = getFragmentManager();
+    }
+    
+    public static FragmentManager getFragment(){
+		return fragment;
+    }
 }
