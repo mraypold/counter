@@ -14,7 +14,9 @@ public class AlertFragment extends DialogFragment {
 	private String message = "Are you sure?";
 	private String confirm = "Yes";
 	private String decline = "No";
+	public static Boolean confirmClicked = false;
 	
+	/* No constructors allowed per android guidelines unless use suppress warnings */
 	
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -24,11 +26,13 @@ public class AlertFragment extends DialogFragment {
         		/* User selects yes */
                .setPositiveButton(confirm, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
+                	   AlertFragment.confirmClicked = false;
                    }
                })
                 /* User selects no */
                .setNegativeButton(decline, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
+                	   AlertFragment.confirmClicked = true;
                    }
                });
         
@@ -50,4 +54,7 @@ public class AlertFragment extends DialogFragment {
 		this.decline = decline;
 	}
 	
+	public Boolean getConfirmClicked() {
+		return confirmClicked;
+	}
 }
