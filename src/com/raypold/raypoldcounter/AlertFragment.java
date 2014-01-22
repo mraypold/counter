@@ -1,5 +1,10 @@
 package com.raypold.raypoldcounter;
 
+/*
+ * Helpful documentation 
+ * http://developer.android.com/guide/topics/ui/dialogs.html
+ */
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -12,49 +17,46 @@ public class AlertFragment extends DialogFragment {
 
 	/* Default text display unless instructed otherwise */
 	private String message = "Are you sure?";
-	private String confirm = "Yes";
-	private String decline = "No";
-	public static Boolean confirmClicked = false;
+	public Boolean confirmClicked = false;
+	public Boolean responseConfirmed = false;
 	
 	/* No constructors allowed per android guidelines unless use suppress warnings */
 	
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-    	
+    	    	
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(message)
+        
+        builder.setMessage(message)      		      
         		/* User selects yes */
-               .setPositiveButton(confirm, new DialogInterface.OnClickListener() {
+               .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                	   AlertFragment.confirmClicked = false;
+                	   confirmClicked = true;
+                	   responseConfirmed = false;
                    }
                })
                 /* User selects no */
-               .setNegativeButton(decline, new DialogInterface.OnClickListener() {
+               .setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                	   AlertFragment.confirmClicked = true;
+                	   confirmClicked = true;
+                	   responseConfirmed = false;
                    }
                });
         
         return builder.create();
     	
     }
-
+    
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-
-	public void setConfirm(String confirm) {
-		this.confirm = confirm;
-	}
-
-
-	public void setDecline(String decline) {
-		this.decline = decline;
+		
+	/* Use this to determine if dialog has been clicked */
+	public Boolean isClicked() {
+		return confirmClicked;
 	}
 	
-	public Boolean getConfirmClicked() {
-		return confirmClicked;
+	public Boolean response() {
+		return responseConfirmed;
 	}
 }

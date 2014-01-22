@@ -46,13 +46,17 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		
 		inflatedView = inflater.inflate(R.layout.fragment_counter, container, false);
 		
+		/* Determine the last open counter and set to the workingCounterName */
 		preferences = this.getActivity().getSharedPreferences(USERPREFERENCES, 0);
 		userPreferences = new Preferences(preferences);
 		workingCounterName = userPreferences.getLastOpenCounter();
 		
+		// TODO probably don't need savedCounters anymore
 		savedCounters = this.getActivity().getSharedPreferences(SAVEDCOUNTERS, 0);
 		openCounter = new Counter(workingCounterName, savedCounters);
 
+		/* Use the working counter name to deserialize */
+		
 		setTextDisplay();
 		displayCount();
 		

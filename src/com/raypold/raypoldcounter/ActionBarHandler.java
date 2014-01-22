@@ -5,7 +5,9 @@
  */
 package com.raypold.raypoldcounter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -57,20 +59,16 @@ public class ActionBarHandler extends MainActivity {
 	private void resetCounter() {		
 		
 		/* Confirm reset */
-		AlertFragment alert = new AlertFragment();
-		alert.setMessage(String.format("Are you sure you want to reset %s?", openCounterName));
-		alert.show(MainActivity.getFragment(), "confirmReset");
+		//AlertFragment alert = new AlertFragment();
+		//alert.setMessage(String.format("Are you sure you want to reset %s?", openCounterName));
+		//alert.show(MainActivity.getFragment(), "confirmReset");
 		
-		if(alert.getConfirmClicked() == true) {
-			// Wait for button confirmation
-			
-			counter.resetCurrentCount();
-			CounterFragment.refreshDisplay();
-			
-			Toast.makeText(context, String.format("%s has been reset", openCounterName), 
-					Toast.LENGTH_SHORT).show();
-		}
-
+		counter.resetCurrentCount();
+		CounterFragment.refreshDisplay();
+		
+		Toast.makeText(context, String.format("%s has been reset", openCounterName), 
+				Toast.LENGTH_SHORT).show();	
+		
 	}
 	
 	// Make it show the old and new name?

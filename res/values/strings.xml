@@ -18,4 +18,11 @@
     <string name="countDisplayHint">Current count</string>
     <string name="counterName">NameMePlease</string>
     
+    
+    <!-- Strings for alert dialog fragments -->
+    <string name="confirm">Yes</string>
+    <string name="decline">No</string>
+    <string name="message">Are you sure?</string>
+    <string name="resetQuestion">Are you sure you want to reset </string>
+    
 </resources>

@@ -1,12 +1,16 @@
 package com.raypold.raypoldcounter;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-public class Counter {
+public class Counter implements java.io.Serializable {
 
-	private int currentCount;
 	private String counterName;
+	private int currentCount;
+	private ArrayList<Date> dates;
 	
 	private SharedPreferences counterFile;
 	
@@ -14,6 +18,7 @@ public class Counter {
 	public Counter(String name, SharedPreferences file) {
 		setCounterName(name);
 		setCounterFile(file);
+		dates = new ArrayList<Date>();
 	}
 	
 	public void setCounterFile(SharedPreferences file) {
@@ -44,12 +49,17 @@ public class Counter {
 	
 	public void incrementCount() {
 		this.currentCount++;
+		dates.add(new Date(System.currentTimeMillis()));
 		saveCount();
 	}
 	
 	public void decrementCount() {
-		this.currentCount--;
-		saveCount();
+		/* Only decrement until it reaches zero */
+		if(getCurrentCount() >= 1){
+			this.currentCount--;
+			dates.remove(dates.size() - 1);
+			saveCount();
+		}
 	}
 	
 	public void saveCount() {
