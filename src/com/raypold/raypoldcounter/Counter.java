@@ -1,12 +1,13 @@
 package com.raypold.raypoldcounter;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-public class Counter implements java.io.Serializable {
+public class Counter implements Serializable {
 
 	private String counterName;
 	private int currentCount;

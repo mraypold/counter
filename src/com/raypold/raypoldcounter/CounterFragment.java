@@ -11,6 +11,9 @@
 
 package com.raypold.raypoldcounter;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -50,13 +53,23 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		preferences = this.getActivity().getSharedPreferences(USERPREFERENCES, 0);
 		userPreferences = new Preferences(preferences);
 		workingCounterName = userPreferences.getLastOpenCounter();
-		
-		// TODO probably don't need savedCounters anymore
+				
+		/* Determine if we need to deserialize a counter or create a new one */
 		savedCounters = this.getActivity().getSharedPreferences(SAVEDCOUNTERS, 0);
+
+		// Not opening because file doesn't exist really.
+		
+/*		if (savedCounters.contains(workingCounterName)){
+			CounterSave counterIO = new CounterSave();
+			counterIO.deserialize(workingCounterName, savedCounters);
+			openCounter = new Counter(workingCounterName, savedCounters);
+
+		}
+		else{
+			openCounter = new Counter(workingCounterName, savedCounters);
+		}*/
 		openCounter = new Counter(workingCounterName, savedCounters);
 
-		/* Use the working counter name to deserialize */
-		
 		setTextDisplay();
 		displayCount();
 		

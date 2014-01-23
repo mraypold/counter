@@ -15,8 +15,10 @@ package com.raypold.raypoldcounter;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -52,6 +54,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		setContentView(R.layout.activity_main);
 		
 		setFragmentManager();
+		detectFirstRun();
 		
 		/* Open the sharedPreference files for the actionBar functions extended in ActionBarHandler */
 		preferences = getSharedPreferences("userPreferences", 0);
@@ -117,6 +120,16 @@ public class MainActivity extends FragmentActivity implements TabListener {
     public boolean onOptionsItemSelected(MenuItem item) {
 		ActionBarHandler handler = new ActionBarHandler(item, getApplicationContext());
     	return handler.getAction();
+    }
+    
+    /* Determine if this is the first time the application has run */
+    private void detectFirstRun() {
+    	
+    	/* User MUST enter counter name or app crashes. The following enforces that */
+    	DialogFragment nameCounter = new FirstRunCounterDialog();
+    	nameCounter.setCancelable(false);
+    	nameCounter.show(getFragment(), "newCounter");
+    	
     }
     
     
