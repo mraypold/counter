@@ -42,6 +42,9 @@ public class MainActivity extends FragmentActivity implements TabListener {
 											 "Summary" 
 											};
 	
+	private final String PREFERENCESFILE = "userPreferences";
+	private final String FIRSTRUN = "isFirstRun";
+	
 	public ActionBar actionBar;
 	public static ViewPager viewPager;
 	public static SharedPreferences preferences, savedCounters;
@@ -125,13 +128,23 @@ public class MainActivity extends FragmentActivity implements TabListener {
     /* Determine if this is the first time the application has run */
     private void detectFirstRun() {
     	
-    	/* User MUST enter counter name or app crashes. The following enforces that */
-    	DialogFragment nameCounter = new FirstRunCounterDialog();
-    	nameCounter.setCancelable(false);
-    	nameCounter.show(getFragment(), "newCounter");
+    	SharedPreferences preferences = getSharedPreferences(PREFERENCESFILE, 0);
+    	Boolean firstRun = preferences.getBoolean(FIRSTRUN, true);
+    	
+    	if(firstRun == true) {
+    		createNewCounter();
+    	}
     	
     }
     
+    /* Enforce the creation of a new counter upon the user */
+    private void createNewCounter() {
+    	DialogFragment nameCounter = new FirstRunCounterDialog();
+    	nameCounter.setCancelable(false);
+    	nameCounter.show(getFragmentManager(), "newCounter"); // changed see if crash
+    	
+    	// Wait for return response and create the counter.
+    }
     
     /* Unfortunately, I couldn't get certain functions in ActionBarHandler to work without
      * the following getters and setters.
