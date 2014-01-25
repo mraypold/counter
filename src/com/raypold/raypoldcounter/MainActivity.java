@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,10 +49,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 											 "Saved Counters",
 											 "Summary" 
 											};
-	
-	//private final String PREFERENCESFILE = "userPreferences";
-	//private final String FIRSTRUN = "isFirstRun";
-	
+		
 	public ActionBar actionBar;
 	public static ViewPager viewPager;
 	public static SharedPreferences preferences, savedCounters;
@@ -173,7 +169,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
     }
 
-
+    // TODO. do i still need this?
 	/* Unfortunately, I couldn't get certain functions in ActionBarHandler to work without
      * the following getters and setters.
      * 

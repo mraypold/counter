@@ -6,7 +6,6 @@
 package com.raypold.raypoldcounter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,7 +13,6 @@ public class ActionBarHandler extends MainActivity {
 
 	private MenuItem item;
 	private static Context context;
-	private Counter counter;
 	private static String openCounterName;
 	
 	public ActionBarHandler(MenuItem item, Context applicationContext) {
@@ -62,22 +60,12 @@ public class ActionBarHandler extends MainActivity {
 	}
 	
 	private void newCounter() {
-		Toast.makeText(context, "New counter has been created", Toast.LENGTH_SHORT).show();
-
+        NewCounterAlert newAlert = new NewCounterAlert();
+        newAlert.show(MainActivity.getFragment(), "newCounterAlert");        
 	}
 	
 	private void deleteCounter() {
 
-		/* Confirm delete */
-		AlertFragment alert = new AlertFragment();
-		alert.setMessage(String.format("Are you sure you want to delete %s?", openCounterName));
-		alert.show(MainActivity.getFragment(), "confirmDelete");
-
-		// Wait for button confirmation
-		
-		counter.deleteCounter();
-		CounterFragment.refreshDisplay();
-		
 		Toast.makeText(context, "Counter has been deleted", Toast.LENGTH_SHORT).show();
 
 	}

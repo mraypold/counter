@@ -28,9 +28,10 @@
     <string name="decline">No</string>
     <string name="message">Are you sure?</string>
     <string name="resetQuestion">Are you sure you want to reset </string>
-    <string name="createCounterHint">Enter a counter name</string>
+    <string name="createCounter">Enter a counter name</string>
     <string name="RenameCounterMessage">Enter a new counter name</string>
     <string name="renamed">The counter has been renamed</string>
+	<string name="counterCreated">A new counter has been created</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     
