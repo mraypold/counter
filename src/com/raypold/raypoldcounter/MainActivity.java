@@ -148,15 +148,13 @@ public class MainActivity extends FragmentActivity implements TabListener {
     }
 
     /*Create a default counter for the user on the first run */
-    private void createFirstCounter() {
+    public void createFirstCounter() {
 		String defaultCounterName = getString(R.string.defaultCounterName);
 
 		CountersMap counters = new CountersMap();
-		//Counter counter = new Counter(defaultCounterName, savedCounters);
 		Counter counter = new Counter(defaultCounterName);
 		counters.insertCounterObject(counter);
 	
-    	//Preferences preferences = new Preferences(getSharedPreferences(PREFERENCESFILE, 0));
 		Preferences preferences = new Preferences(getBaseContext());
 		preferences.setLastOpenCounter(defaultCounterName);
 		

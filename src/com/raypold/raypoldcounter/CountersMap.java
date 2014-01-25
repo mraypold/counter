@@ -51,6 +51,24 @@ public class CountersMap implements Serializable {
 		return countersMap.containsKey(counterName);
 	}
 	
+	/* Return the counter with highest count */
+	public String getLargestCountName() {
+		String counterName = null;
+		Integer highestCount = 0;
+		
+		for (String key : countersMap.keySet()) {
+			Integer keyCount = countersMap.get(key);
+			
+			if (keyCount >= highestCount) {
+				counterName = key;
+				highestCount = keyCount;
+			}
+			
+		}
+		
+		return counterName;
+	}
+	
 	public Set<Entry<String, Integer>> getOrderedList() {
 		Set<Entry<String, Integer>>counterSet = countersMap.entrySet();
 		Set<Entry<String, Integer>>orderedSet = null;

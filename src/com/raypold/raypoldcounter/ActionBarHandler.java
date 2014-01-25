@@ -65,9 +65,8 @@ public class ActionBarHandler extends MainActivity {
 	}
 	
 	private void deleteCounter() {
-
-		Toast.makeText(context, "Counter has been deleted", Toast.LENGTH_SHORT).show();
-
+        DeleteCounterAlert deleteAlert = new DeleteCounterAlert();
+        deleteAlert.show(MainActivity.getFragment(), "deleteCounterAlert");        
 	}
 	
 	private void help(){
