@@ -29,9 +29,10 @@
     <string name="message">Are you sure?</string>
     <string name="resetQuestion">Are you sure you want to reset </string>
     <string name="createCounterHint">Enter a counter name</string>
+    <string name="RenameCounterMessage">Enter a new counter name</string>
+    <string name="renamed">The counter has been renamed</string>
     <string name="ok">OK</string>
-    <string name="firstRunMessage">This is the firt time running Counter!</string>
-    <string name="helpMessage">Here is some help to get you started</string>
+    <string name="cancel">Cancel</string>
     
     <!-- Help menu dialog -->
     <string name="helpReset">Reset current counter</string>

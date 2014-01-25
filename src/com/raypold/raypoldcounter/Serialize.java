@@ -1,5 +1,6 @@
 package com.raypold.raypoldcounter;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -132,4 +133,15 @@ public class Serialize extends Activity {
 		return map;
 	}
 	
+	public void deleteCounterFile(String counterName) {
+		try {
+			File counter = new File(counterName.concat(".dat"));
+			counter.delete();
+			Log.e("degbug", "file deleted");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			Log.e("degbug", "file not delete");
+		}
+	}
 }

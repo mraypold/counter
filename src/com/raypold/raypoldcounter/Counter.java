@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 public class Counter implements Serializable {
 
@@ -107,8 +108,19 @@ public class Counter implements Serializable {
 		return counterName;
 	}
 
-	public void setCounterName(String counterName) {
+	private void setCounterName(String counterName) {
 		this.counterName = counterName;
+	}
+	
+	public void renameCounter(String newCounterName) {
+		/* Delete old key in hash map and existing counter file on disk */
+		Log.e("degbug", "deleteCounter() before");
+		deleteCounter();
+		Log.e("degbug", "deleteCounter() after");
+		setCounterName(newCounterName);
+		Log.e("degbug", "after setCounterName()");
+
+		saveCount();
 	}
 	
 	public void incrementCount() {
@@ -135,11 +147,20 @@ public class Counter implements Serializable {
 		
 		serialize.serializeCountersMap(savedCounters);
 		serialize.serializeCounter(this);
+		
+		Preferences userPreferences = new Preferences(MainActivity.context);
+		userPreferences.setLastOpenCounter(this.counterName);
 	}
 	
 	public void deleteCounter() {
 		CountersMap savedCounters = new CountersMap();
-		//savedCounters.deleteCounter(this.counterName);
+		Serialize serialize = new Serialize();
+
+		savedCounters = serialize.deserializeCountersMap();
+		savedCounters.deleteCounter(this.counterName);
+		
+		serialize.serializeCountersMap(savedCounters);
+		serialize.deleteCounterFile(this.counterName);
 		
 		// TODO when the counter is deleted will have to switch to a new counter or a default one
 	}

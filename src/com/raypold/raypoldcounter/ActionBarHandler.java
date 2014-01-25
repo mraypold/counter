@@ -6,21 +6,21 @@
 package com.raypold.raypoldcounter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 public class ActionBarHandler extends MainActivity {
 
 	private MenuItem item;
-	private Context context;
-	private Preferences userPreferences;
+	private static Context context;
 	private Counter counter;
-	private String openCounterName;
+	private static String openCounterName;
 	
 	public ActionBarHandler(MenuItem item, Context applicationContext) {
 		super();
 		this.item = item;
-		this.context = applicationContext;
+		ActionBarHandler.context = applicationContext;
 	}
 	
 	public boolean getAction() {
@@ -45,25 +45,20 @@ public class ActionBarHandler extends MainActivity {
 	}	
 	
 	private void resetCounter() {	
-		/* Find open counter then reset the count in the Counter and CountersMap classes */
-		Preferences userPreferences = new Preferences(context);
-		String openCounterName = userPreferences.getLastOpenCounter();
-		
-		Serialize serialize = new Serialize();
-		Counter openCounter = serialize.deserializeCounter(openCounterName);
+		Counter openCounter = getOpenCounter();
 		openCounter.resetCurrentCount();
 		
 		CounterFragment.refreshDisplay();
+		// TODO will also need to refreshDispaly in savedCounters and summary
 		
 		Toast.makeText(context, String.format("%s has been reset", openCounterName), 
 				Toast.LENGTH_SHORT).show();
 		
 	}
 	
-	// Make it show the old and new name?
 	private void renameCounter() {
-		Toast.makeText(context, String.format("%s has been renamed", openCounterName), 
-				Toast.LENGTH_SHORT).show();
+        RenameCounterAlert renameAlert = new RenameCounterAlert();
+        renameAlert.show(MainActivity.getFragment(), "RenameCounterAlert");        
 	}
 	
 	private void newCounter() {
@@ -89,5 +84,20 @@ public class ActionBarHandler extends MainActivity {
 	
 	private void help(){
 
+	}
+	
+	/* Intention of this method is to not have an openCounter attribute in the actionBar wasting memory all the time */
+	/* ActionBar buttons are not clicked very often */
+	public static Counter getOpenCounter() {
+		setOpenCounterName();
+		Serialize serialize = new Serialize();
+		Counter openCounter = serialize.deserializeCounter(openCounterName);
+
+		return openCounter;
+	}
+	
+	public static void setOpenCounterName() {
+		Preferences userPreferences = new Preferences(context);
+		openCounterName = userPreferences.getLastOpenCounter();
 	}
 }
