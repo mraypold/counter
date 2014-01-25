@@ -85,7 +85,7 @@ public class Counter implements Serializable {
 	// The sharedPreferences file is the file the holds all counters and their count
 	public Counter(String name) {
 		setCounterName(name);
-		setCurrentCount(0);
+		setCurrentCount(0); // Maybe this is the bug.
 		dates = new ArrayList<Date>();
 	}
 	
@@ -127,9 +127,13 @@ public class Counter implements Serializable {
 	
 	public void saveCount() {
 		CountersMap savedCounters = new CountersMap();
-		Serialize deserialize = new Serialize();
-		savedCounters = deserialize.deserializeCountersMap();
-		//savedCounters.insertCounter(this.counterName, this.currentCount);
+		Serialize serialize = new Serialize();
+		
+		savedCounters = serialize.deserializeCountersMap();
+		savedCounters.insertCounter(this.counterName, this.currentCount);
+		
+		serialize.serializeCountersMap(savedCounters);
+		serialize.serializeCounter(this);
 	}
 	
 	public void deleteCounter() {

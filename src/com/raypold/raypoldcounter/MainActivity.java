@@ -9,6 +9,7 @@
  * https://www.youtube.com/watch?v=iEl0ylVvZho
  * 
  * 
+ * 
  * saved code
  * 		
  *    	//DialogFragment nameCounter = new FirstRunCounterDialog();
@@ -29,6 +30,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,14 +51,14 @@ public class MainActivity extends FragmentActivity implements TabListener {
 											 "Summary" 
 											};
 	
-	private final String PREFERENCESFILE = "userPreferences";
-	private final String FIRSTRUN = "isFirstRun";
+	//private final String PREFERENCESFILE = "userPreferences";
+	//private final String FIRSTRUN = "isFirstRun";
 	
 	public ActionBar actionBar;
 	public static ViewPager viewPager;
 	public static SharedPreferences preferences, savedCounters;
 	private static FragmentManager fragment;
-	public static Context context;
+	public static Context context; // Going to need to access this directly for the serialize class
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -64,9 +66,9 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
 		
+		context = getApplicationContext();
 		setFragmentManager();
 		detectFirstRun();
-		context = getApplicationContext();
 		
 		/* Open the sharedPreference files for the actionBar functions extended in ActionBarHandler */
 		preferences = getSharedPreferences("userPreferences", 0);
@@ -144,13 +146,15 @@ public class MainActivity extends FragmentActivity implements TabListener {
     	if(firstRun == true) {
     		createFirstCounter();
     		preferences.setFirstRun();
+    		
     	}
-
+    	
     }
 
     /*Create a default counter for the user on the first run */
     private void createFirstCounter() {
 		String defaultCounterName = getString(R.string.defaultCounterName);
+
 		CountersMap counters = new CountersMap();
 		//Counter counter = new Counter(defaultCounterName, savedCounters);
 		Counter counter = new Counter(defaultCounterName);
@@ -164,13 +168,13 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		Serialize serialize = new Serialize();
 		serialize.serializeCountersMap(counters);
 		serialize.serializeCounter(counter);
-		
-		// TODO Not happy with where this appears on the screen.
+
 		Toast.makeText(getBaseContext(), getString(R.string.defaultCounterMessage), Toast.LENGTH_LONG).show();
 
     }
-    
-    /* Unfortunately, I couldn't get certain functions in ActionBarHandler to work without
+
+
+	/* Unfortunately, I couldn't get certain functions in ActionBarHandler to work without
      * the following getters and setters.
      * 
      * Ideally, I think there is an alternative, more elegant way to code this.
@@ -179,7 +183,8 @@ public class MainActivity extends FragmentActivity implements TabListener {
     	MainActivity.fragment = getFragmentManager();
     }
     
-    public static FragmentManager getFragment(){
+    public static FragmentManager getFragment () {
 		return fragment;
     }
+    
 }

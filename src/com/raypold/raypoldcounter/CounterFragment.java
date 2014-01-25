@@ -11,12 +11,10 @@
 
 package com.raypold.raypoldcounter;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +33,8 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 	SharedPreferences preferences, savedCounters;
 	
 	Preferences userPreferences;
+	
+	// TODO access modifiers. Public or private?
 	static Counter openCounter;
 	
 	static View inflatedView;
@@ -46,38 +46,18 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+    	Log.e("degbug", "in counter fragment");
+
 		inflatedView = inflater.inflate(R.layout.fragment_counter, container, false);
 		
-		/* Determine the last open counter and set to the workingCounterName */
-		//preferences = this.getActivity().getSharedPreferences(USERPREFERENCES, 0);
-		//userPreferences = new Preferences(preferences);
-		//workingCounterName = userPreferences.getLastOpenCounter();
-		
+		/* Determine the last open counter and set to the workingCounterName */		
 		userPreferences = new Preferences(getActivity());
 		workingCounterName = userPreferences.getLastOpenCounter();
-		
-		/* Determine if we need to deserialize a counter or create a new one */
-		//savedCounters = this.getActivity().getSharedPreferences(SAVEDCOUNTERS, 0);
 
-		/* Deserialize the necessary counter and counterMap */
+		/* Deserialize the necessary counter */
 		Serialize deserialize = new Serialize();
-		openCounter = new Counter(workingCounterName); 
-		//openCounter = deserialize.deserializeCounter(workingCounterName);
+		openCounter = deserialize.deserializeCounter(workingCounterName);
 		
-		// Not opening because file doesn't exist really.
-		
-/*		if (savedCounters.contains(workingCounterName)){
-			CounterSave counterIO = new CounterSave();
-			counterIO.deserialize(workingCounterName, savedCounters);
-			openCounter = new Counter(workingCounterName, savedCounters);
-
-		}
-		else{
-			openCounter = new Counter(workingCounterName, savedCounters);
-		}*/
-		//openCounter = new Counter(workingCounterName, savedCounters);
-
 		setTextDisplay();
 		displayCount();
 		
