@@ -9,8 +9,10 @@ import java.io.ObjectOutputStream;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Serialize extends Activity{
 	
@@ -27,6 +29,7 @@ public class Serialize extends Activity{
 			objectStream.flush();
 			objectStream.close();
 			fileStream.close();
+
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -50,16 +53,16 @@ public class Serialize extends Activity{
 		}
 	}
 	
-	public void deserializeCounter(String counterName, SharedPreferences preferences) {
-		//Counter counter = null;
-		try {
+	public Counter deserializeCounter(String counterName) {
+		Counter counter = null;
+/*		try {
 			FileInputStream fileStream = getApplicationContext().openFileInput(counterName);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
-/*		try {
+		try {
 			//FileInputStream fileStream = new FileInputStream(counterName);
 			//MainActivity.setContext();
 			
@@ -73,14 +76,52 @@ public class Serialize extends Activity{
 			return counter;
 		}
 		catch (IOException e) {
-			Log.v("stuff", counterName);
 			e.printStackTrace();
 		}
 		catch (ClassNotFoundException c) {
-			Log.v("stuff", counterName);
+			c.printStackTrace();
+		}
+		
+		return counter;
+	}
+
+	public CountersMap deserializeCountersMap() {
+		CountersMap map = null;
+/*		try {
+			FileInputStream fileStream = getApplicationContext().openFileInput(counterName);
+		} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}*/
+		
+		// Adding context seemed to have fixed this...
+		try {
+			FileInputStream fileStream = MainActivity.context.openFileInput(COUNTERSFILE);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+/*		try {
+			FileInputStream fileStream = getApplicationContext().openFileInput(COUNTERSFILE);
+			//FileInputStream fileStream = getApplicationContext().openFileInput(COUNTERSFILE);
+
+			ObjectInputStream objectStream = new ObjectInputStream(fileStream);
+
+			map = (CountersMap) objectStream.readObject();
+			
+			objectStream.close();
+			fileStream.close();
+			return map;
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException c) {
 			c.printStackTrace();
 		}*/
 		
+		return map;
 	}
 	
 }

@@ -28,7 +28,8 @@ public class ActionBarHandler extends MainActivity {
 		
 		setOpenCounterName(); // Must be called before setting counter.
 		
-		this.counter = new Counter(openCounterName, MainActivity.savedCounters);
+		//this.counter = new Counter(openCounterName, MainActivity.savedCounters);
+		this.counter = new Counter(openCounterName);
 	}
 	
 	public boolean getAction() {

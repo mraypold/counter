@@ -54,13 +54,17 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		//userPreferences = new Preferences(preferences);
 		//workingCounterName = userPreferences.getLastOpenCounter();
 		
-		Serialize deserialize = new Serialize();
 		userPreferences = new Preferences(getActivity());
-		String lastOpenCounter = userPreferences.getLastOpenCounter();
+		workingCounterName = userPreferences.getLastOpenCounter();
 		
 		/* Determine if we need to deserialize a counter or create a new one */
 		//savedCounters = this.getActivity().getSharedPreferences(SAVEDCOUNTERS, 0);
 
+		/* Deserialize the necessary counter and counterMap */
+		Serialize deserialize = new Serialize();
+		openCounter = new Counter(workingCounterName); 
+		//openCounter = deserialize.deserializeCounter(workingCounterName);
+		
 		// Not opening because file doesn't exist really.
 		
 /*		if (savedCounters.contains(workingCounterName)){
@@ -72,7 +76,7 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		else{
 			openCounter = new Counter(workingCounterName, savedCounters);
 		}*/
-		openCounter = new Counter(workingCounterName, savedCounters);
+		//openCounter = new Counter(workingCounterName, savedCounters);
 
 		setTextDisplay();
 		displayCount();

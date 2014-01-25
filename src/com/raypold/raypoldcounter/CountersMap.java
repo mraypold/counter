@@ -21,9 +21,16 @@ public class CountersMap implements Serializable {
 		this.countersMap = new HashMap<String, Integer>();
 	}
 	
-	public void insertCounter(Counter counter) {
+	/* There exist two ways to save a counter */
+	/* First method - Pass the counter object */
+	public void insertCounterObject(Counter counter) {
 		String counterName = counter.getCounterName();
 		Integer count = counter.getCurrentCount();
+		countersMap.put(counterName, count);
+	}
+	
+	/* Second method - Manually pass counter name and the count */
+	public void insertCounter(String counterName, Integer count) {
 		countersMap.put(counterName, count);
 	}
 
