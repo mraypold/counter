@@ -98,6 +98,7 @@ public class Counter implements Serializable {
 	}
 	
 	public void resetCurrentCount() {
+		this.dates = new ArrayList<Date>();
 		setCurrentCount(0);
 		saveCount();
 	}
@@ -112,7 +113,7 @@ public class Counter implements Serializable {
 	
 	public void incrementCount() {
 		this.currentCount++;
-		dates.add(new Date(System.currentTimeMillis()));
+		this.dates.add(new Date(System.currentTimeMillis()));
 		saveCount();
 	}
 	

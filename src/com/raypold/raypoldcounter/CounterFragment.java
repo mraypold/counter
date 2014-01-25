@@ -11,10 +11,8 @@
 
 package com.raypold.raypoldcounter;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,20 +22,11 @@ import android.widget.TextView;
 
 public class CounterFragment extends Fragment implements View.OnClickListener {
 	
-	/* Names of the sharedPreferences files */
-	public static final String USERPREFERENCES = "userPreferences";
-	public static final String SAVEDCOUNTERS = "savedCounters";
 	
-	public static String workingCounterName;
-	
-	SharedPreferences preferences, savedCounters;
-	
-	Preferences userPreferences;
-	
-	// TODO access modifiers. Public or private?
-	static Counter openCounter;
-	
-	static View inflatedView;
+	private static String workingCounterName;	
+	private static Preferences userPreferences;
+	private static Counter openCounter;
+	private static View inflatedView;
 		
 	public CounterFragment() {
 		super();
@@ -46,7 +35,6 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-    	Log.e("degbug", "in counter fragment");
 
 		inflatedView = inflater.inflate(R.layout.fragment_counter, container, false);
 		
@@ -89,6 +77,10 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		return inflatedView;
 		
 	}
+	
+	public static String getWorkingCounterName() {
+		return workingCounterName;
+	}
 
 	public static void setTextDisplay() {				
 		/* findViewById() doesn't work inside a fragment. Must use on inflatedView */
@@ -103,7 +95,17 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 	}
 	
 	public static void refreshDisplay() {
-		// TODO. THis is incorrect. Need to update workingCounterName
+		/* 
+		 * Not an ideal solution since high I/O overhead, but ensures that the counter stays in sync with changes from
+		 * the actionBar and other fragment tabs.
+		 * 
+		 * TODO Perhaps some static workaround that doesn't interfere with the saveCount()
+		 */
+		
+		workingCounterName = userPreferences.getLastOpenCounter();
+		Serialize deserialize = new Serialize();
+		openCounter = deserialize.deserializeCounter(workingCounterName);
+
 		setTextDisplay();
 		displayCount();
 	}

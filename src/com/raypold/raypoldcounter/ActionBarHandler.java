@@ -5,9 +5,7 @@
  */
 package com.raypold.raypoldcounter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -23,13 +21,6 @@ public class ActionBarHandler extends MainActivity {
 		super();
 		this.item = item;
 		this.context = applicationContext;
-		//this.userPreferences = new Preferences(MainActivity.preferences);
-		this.userPreferences = new Preferences(getBaseContext());
-		
-		setOpenCounterName(); // Must be called before setting counter.
-		
-		//this.counter = new Counter(openCounterName, MainActivity.savedCounters);
-		this.counter = new Counter(openCounterName);
 	}
 	
 	public boolean getAction() {
@@ -51,25 +42,21 @@ public class ActionBarHandler extends MainActivity {
 			return true;
 		}
 		return false;
-	}
+	}	
 	
-	private void setOpenCounterName() {
-		this.openCounterName = userPreferences.getLastOpenCounter();
-	}
-	
-	
-	private void resetCounter() {		
+	private void resetCounter() {	
+		/* Find open counter then reset the count in the Counter and CountersMap classes */
+		Preferences userPreferences = new Preferences(context);
+		String openCounterName = userPreferences.getLastOpenCounter();
 		
-		/* Confirm reset */
-		//AlertFragment alert = new AlertFragment();
-		//alert.setMessage(String.format("Are you sure you want to reset %s?", openCounterName));
-		//alert.show(MainActivity.getFragment(), "confirmReset");
+		Serialize serialize = new Serialize();
+		Counter openCounter = serialize.deserializeCounter(openCounterName);
+		openCounter.resetCurrentCount();
 		
-		counter.resetCurrentCount();
 		CounterFragment.refreshDisplay();
 		
 		Toast.makeText(context, String.format("%s has been reset", openCounterName), 
-				Toast.LENGTH_SHORT).show();	
+				Toast.LENGTH_SHORT).show();
 		
 	}
 	
