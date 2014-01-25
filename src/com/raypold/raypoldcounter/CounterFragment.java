@@ -50,12 +50,16 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		inflatedView = inflater.inflate(R.layout.fragment_counter, container, false);
 		
 		/* Determine the last open counter and set to the workingCounterName */
-		preferences = this.getActivity().getSharedPreferences(USERPREFERENCES, 0);
-		userPreferences = new Preferences(preferences);
-		workingCounterName = userPreferences.getLastOpenCounter();
-				
+		//preferences = this.getActivity().getSharedPreferences(USERPREFERENCES, 0);
+		//userPreferences = new Preferences(preferences);
+		//workingCounterName = userPreferences.getLastOpenCounter();
+		
+		Serialize deserialize = new Serialize();
+		userPreferences = new Preferences(getActivity());
+		String lastOpenCounter = userPreferences.getLastOpenCounter();
+		
 		/* Determine if we need to deserialize a counter or create a new one */
-		savedCounters = this.getActivity().getSharedPreferences(SAVEDCOUNTERS, 0);
+		//savedCounters = this.getActivity().getSharedPreferences(SAVEDCOUNTERS, 0);
 
 		// Not opening because file doesn't exist really.
 		

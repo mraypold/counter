@@ -23,7 +23,8 @@ public class ActionBarHandler extends MainActivity {
 		super();
 		this.item = item;
 		this.context = applicationContext;
-		this.userPreferences = new Preferences(MainActivity.preferences);
+		//this.userPreferences = new Preferences(MainActivity.preferences);
+		this.userPreferences = new Preferences(getBaseContext());
 		
 		setOpenCounterName(); // Must be called before setting counter.
 		

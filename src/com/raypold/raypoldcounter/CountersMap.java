@@ -2,6 +2,7 @@
  *  Author: Michael Raypold
  *  
  *  CountersMap holds a map of all the counter names, their count and last update.
+ *  It doesn't hold the actual counter since only the name and counter are the important information.
  */
 package com.raypold.raypoldcounter;
 
@@ -20,7 +21,9 @@ public class CountersMap implements Serializable {
 		this.countersMap = new HashMap<String, Integer>();
 	}
 	
-	public void insertCounter(String counterName, Integer count) {
+	public void insertCounter(Counter counter) {
+		String counterName = counter.getCounterName();
+		Integer count = counter.getCurrentCount();
 		countersMap.put(counterName, count);
 	}
 

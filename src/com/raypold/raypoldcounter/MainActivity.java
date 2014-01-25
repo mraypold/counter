@@ -8,6 +8,13 @@
  * https://www.youtube.com/watch?v=VVahIc8yENk
  * https://www.youtube.com/watch?v=iEl0ylVvZho
  * 
+ * 
+ * saved code
+ * 		
+ *    	//DialogFragment nameCounter = new FirstRunCounterDialog();
+ *   	//nameCounter.setCancelable(false);
+ *  	//nameCounter.show(getFragmentManager(), "newCounter"); // changed see if crash
+ *
  */
 
 package com.raypold.raypoldcounter;
@@ -15,10 +22,8 @@ package com.raypold.raypoldcounter;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
-import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -26,6 +31,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements TabListener {
 
@@ -128,22 +134,36 @@ public class MainActivity extends FragmentActivity implements TabListener {
     /* Determine if this is the first time the application has run */
     private void detectFirstRun() {
     	
-    	SharedPreferences preferences = getSharedPreferences(PREFERENCESFILE, 0);
-    	Boolean firstRun = preferences.getBoolean(FIRSTRUN, true);
+    	//Preferences preferences = new Preferences(getSharedPreferences(PREFERENCESFILE, 0));
+    	Preferences preferences = new Preferences(getBaseContext());
+    	Boolean firstRun = preferences.isFirstRun();
     	
     	if(firstRun == true) {
-    		createNewCounter();
+    		createFirstCounter();
+    		preferences.setFirstRun();
     	}
-    	
+
     }
-    
-    /* Enforce the creation of a new counter upon the user */
-    private void createNewCounter() {
-    	DialogFragment nameCounter = new FirstRunCounterDialog();
-    	nameCounter.setCancelable(false);
-    	nameCounter.show(getFragmentManager(), "newCounter"); // changed see if crash
-    	
-    	// Wait for return response and create the counter.
+
+    /*Create a default counter for the user on the first run */
+    private void createFirstCounter() {
+		String defaultCounterName = getString(R.string.defaultCounterName);
+		CountersMap counters = new CountersMap();
+		Counter counter = new Counter(defaultCounterName, savedCounters);
+		counters.insertCounter(counter);
+	
+    	//Preferences preferences = new Preferences(getSharedPreferences(PREFERENCESFILE, 0));
+		Preferences preferences = new Preferences(getBaseContext());
+		preferences.setLastOpenCounter(defaultCounterName);
+		
+		/* Serialize the counter and the counter map to prepare for CounterFragment*/
+		Serialize serialize = new Serialize();
+		serialize.serializeCountersMap(counters);
+		serialize.serializeCounter(counter);
+		
+		// TODO Not happy with where this appears on the screen.
+		Toast.makeText(getBaseContext(), getString(R.string.defaultCounterMessage), Toast.LENGTH_LONG).show();
+
     }
     
     /* Unfortunately, I couldn't get certain functions in ActionBarHandler to work without

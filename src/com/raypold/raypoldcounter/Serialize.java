@@ -12,7 +12,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-public class CounterSave extends Activity{
+public class Serialize extends Activity{
+	
+	private final String COUNTERSFILE = "countersFile";
     
 	/* Serialize the counter class with the name of the counter as the filename */
 	public void serializeCounter(Counter counter) {
@@ -28,11 +30,27 @@ public class CounterSave extends Activity{
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-			// TODO maybe shut down android program?
+			// TODO find android specific way of catching an error
+		}
+	}
+
+	public void serializeCountersMap(CountersMap counters) {
+		try {
+			FileOutputStream fileStream = new FileOutputStream(COUNTERSFILE);
+			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+			objectStream.writeObject(counters);
+			
+			fileStream.flush();
+			objectStream.flush();
+			objectStream.close();
+			fileStream.close();
+		}
+		catch (IOException e){
+			e.printStackTrace();
 		}
 	}
 	
-	public void deserialize(String counterName, SharedPreferences preferences) {
+	public void deserializeCounter(String counterName, SharedPreferences preferences) {
 		//Counter counter = null;
 		try {
 			FileInputStream fileStream = getApplicationContext().openFileInput(counterName);

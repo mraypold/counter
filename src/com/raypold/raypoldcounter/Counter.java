@@ -10,7 +10,7 @@ import android.content.SharedPreferences.Editor;
 public class Counter implements Serializable {
 
 	private String counterName;
-	private int currentCount;
+	private Integer currentCount;
 	private ArrayList<Date> dates;
 	
 	private SharedPreferences counterFile;
@@ -19,6 +19,7 @@ public class Counter implements Serializable {
 	public Counter(String name, SharedPreferences file) {
 		setCounterName(name);
 		setCounterFile(file);
+		setCurrentCount(0);
 		dates = new ArrayList<Date>();
 	}
 	
@@ -26,12 +27,11 @@ public class Counter implements Serializable {
 		this.counterFile = file;
 	}
 	
-	public int getCurrentCount() {
-		this.currentCount = counterFile.getInt(counterName, 0);
-		return currentCount;
+	public Integer getCurrentCount() {
+		return this.currentCount;
 	}
 
-	public void setCurrentCount(int value) {
+	public void setCurrentCount(Integer value) {
 		this.currentCount = value;
 	}
 	
