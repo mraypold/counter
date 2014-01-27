@@ -1,12 +1,14 @@
 /*
- * This class primarily handles the UI logic for the counter fragment.
+ * Author: Michael Raypold
  * 
- * Since 
+ * A copy of the license is available in LICENSE
  * 
- * Documentation/Stackoverflow which was helpful:
+ * CounterFragment handles the logic associated with the XML UI.
+ * 	- Incrementing/decrementing through calling the appropriate Counter()
+ *  - The UI is available in /res/layout/fragment_counter.xml
+ * 
+ * Documentation from Stackoverflow which was helpful:
  * http://stackoverflow.com/questions/15322237/android-how-do-i-update-my-textview-in-a-fragment
- * 
- * 
  */
 
 package com.raypold.raypoldcounter;
@@ -73,7 +75,6 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 			
 		});
 		
-		// Inflate the layout for this fragment
 		return inflatedView;
 		
 	}
@@ -98,9 +99,7 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		/* 
 		 * Not an ideal solution since high I/O overhead, but ensures that the counter stays in sync with changes from
 		 * the actionBar and other fragment tabs.
-		 * 
-		 * TODO Perhaps some static workaround that doesn't interfere with the saveCount()
-		 */
+		 * */
 		
 		workingCounterName = userPreferences.getLastOpenCounter();
 		Serialize deserialize = new Serialize();
@@ -112,7 +111,7 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 	}
 
 }

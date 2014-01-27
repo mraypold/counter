@@ -1,10 +1,18 @@
+/*
+ * Author: Michael Raypold
+ * 
+ * A copy of the license is available in LICENSE
+ * 
+ * Counter provides all the basic functionality of a tally counter.
+ * 
+ */
 package com.raypold.raypoldcounter;
 
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
-import android.util.Log;
 
+@SuppressWarnings("serial")
 public class Counter implements Serializable {
 	
 	private String counterName;
@@ -40,12 +48,11 @@ public class Counter implements Serializable {
 	}
 	
 	public void renameCounter(String newCounterName) {
-		/* Delete old key in hash map and existing counter file on disk */
-		Log.e("degbug", "deleteCounter() before");
+		/* Delete old key in hash map and existing counter file on disk,
+		 * then update the name and save the counter.
+		 * */
 		deleteCounter();
-		Log.e("degbug", "deleteCounter() after");
 		setCounterName(newCounterName);
-		Log.e("degbug", "after setCounterName()");
 
 		saveCount();
 	}
@@ -87,9 +94,7 @@ public class Counter implements Serializable {
 		savedCounters.deleteCounter(this.counterName);
 		
 		serialize.serializeCountersMap(savedCounters);
-		serialize.deleteCounterFile(this.counterName);
-		
-		// TODO when the counter is deleted will have to switch to a new counter or a default one
+		serialize.deleteCounterFile(this.counterName);	
 	}
 	
 }

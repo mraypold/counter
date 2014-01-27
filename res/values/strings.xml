@@ -4,6 +4,12 @@
     <string name="app_name">Counter</string>
     <string name="defaultCounterName">Counter</string>
     
+    <!-- Tab fragment names -->
+    <string name="counter">Counter</string>
+    <string name="saved_counters">Saved Counters</string>
+    <string name="summary">Summary</string>
+        
+    
     <!-- Toast messages -->
     <string name="defaultCounterMessage">A default counter has been created for you.</string>
     

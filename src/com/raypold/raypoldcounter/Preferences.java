@@ -3,12 +3,6 @@
  * 
  * Responsible for getting and setting preferences that aid the fragments
  * 
- * If this is the first time the application has run, or there exists no
- * saved counters, then the lastOpenCounter is default as "Counter".
- * 
- * This class requires as arguments an open sharedPreferences file, since calling
- * sharedPreferences differs between fragments and views.
- * 
  */
 package com.raypold.raypoldcounter;
 
@@ -27,15 +21,6 @@ public class Preferences {
 	
 	private String lastOpenCounter = null;
 	private Boolean firstRun = false;
-	
-	/* Must pass in a context since this class is not an extension of Context
-	 * 
-	 * This is due to some limitation on SharedPreferences. Since it is called on a Context
-	 */
-/*	public Preferences(SharedPreferences preferences) {
-		super();
-		setUserPreferences(preferences);
-	}*/
 
 	public Preferences(Context context) {
 		super();

@@ -17,13 +17,12 @@ public class SavedCounterFragment extends Fragment {
 	View inflatedView;
 	
 	public SavedCounterFragment() {
-		// Required empty public constructor
+
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
 		inflatedView = inflater.inflate(R.layout.fragment_saved_counter, container,
 				false);
 		

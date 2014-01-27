@@ -1,3 +1,10 @@
+/*
+ * Author: Michael Raypold
+ *  
+ * A copy of the license is available in LICENSE
+ *  
+ * The only responsibility of this adapter is to return the appropriate custom fragment classes.
+ */
 package com.raypold.raypoldcounter;
 
 import android.support.v4.app.Fragment;

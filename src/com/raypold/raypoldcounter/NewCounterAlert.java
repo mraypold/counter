@@ -1,3 +1,11 @@
+/*
+ * Author Michael Raypold
+ * 
+ * A copy of the license is available in LICENSE or at http://www.gnu.org/licenses/gpl-2.0.html
+ * 
+ * Creates an alert dialog for a new counter asking for the name
+ * - Some layout is handled with builder the rest in res/layout/create_counter.xml
+ */
 package com.raypold.raypoldcounter;
 
 import android.app.AlertDialog;

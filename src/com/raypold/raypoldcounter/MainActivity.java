@@ -1,21 +1,17 @@
 /*
- * MainActivity.java initializes the application layout.
- * This includes setting up the action bar and tabs
+ * Author Michael Raypold
  * 
+ * A copy of the license is available in LICENSE or at http://www.gnu.org/licenses/gpl-2.0.html
+ * 
+ * MainActivity initializes the application layout.
+ *  - This includes setting up the action bar and tabs
+ *  - Determine if this is the first time the application has run
+ *  - Creating a counter if none exist on disk.
  * 
  * Tutorials used for code on this page include:
  * http://www.androidhive.info/2013/10/android-tab-layout-with-swipeable-views-1/
  * https://www.youtube.com/watch?v=VVahIc8yENk
  * https://www.youtube.com/watch?v=iEl0ylVvZho
- * 
- * 
- * 
- * saved code
- * 		
- *    	//DialogFragment nameCounter = new FirstRunCounterDialog();
- *   	//nameCounter.setCancelable(false);
- *  	//nameCounter.show(getFragmentManager(), "newCounter"); // changed see if crash
- *
  */
 
 package com.raypold.raypoldcounter;
@@ -37,19 +33,11 @@ import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements TabListener {
 
-	/* Constant Declarations:
-	 * 
-	 * This uses slightly more memory, but will make adding/subtracting tabs easier
-	 * in the event the the UI changes later on.
-	 * 
-	 * NUMBEROFTABS must be the same as the size of the TABNAMES list!
-	 */
+	/* NUMBEROFTABS must be the same as the size of the tabNames list!
+	 * */
 	public final static int NUMBEROFTABS = 3;
-	public final static String[] TABNAMES = {"Counter",
-											 "Saved Counters",
-											 "Summary" 
-											};
-		
+	public String[] tabNames = {};  // see setTabNames();       
+													
 	public ActionBar actionBar;
 	public static ViewPager viewPager;
 	public static SharedPreferences preferences, savedCounters;
@@ -77,9 +65,10 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
 
-
+		setTabNames();
+		
 		/* Create the navigation tabs and add them to the action bar */
-		for(String tabName : TABNAMES){
+		for(String tabName : tabNames){
 			actionBar.addTab(actionBar.newTab().setText(tabName).setTabListener(this));
 		}
 				
@@ -135,7 +124,6 @@ public class MainActivity extends FragmentActivity implements TabListener {
     /* Determine if this is the first time the application has run */
     private void detectFirstRun() {
     	
-    	//Preferences preferences = new Preferences(getSharedPreferences(PREFERENCESFILE, 0));
     	Preferences preferences = new Preferences(getBaseContext());
     	Boolean firstRun = preferences.isFirstRun();
     	
@@ -147,7 +135,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
     	
     }
 
-    /*Create a default counter for the user on the first run */
+    /* Create a default counter for the user on the first run */
     public void createFirstCounter() {
 		String defaultCounterName = getString(R.string.defaultCounterName);
 
@@ -167,7 +155,14 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
     }
 
-    // TODO. do i still need this?
+    /* Remember to change NUMBEROFTABS if adding/removing tabs here */
+    private void setTabNames() {
+    	tabNames = new String[] { getResources().getString(R.string.counter),
+    							  getResources().getString(R.string.saved_counters),
+    							  getResources().getString(R.string.summary)
+    							};
+    }
+    
 	/* Unfortunately, I couldn't get certain functions in ActionBarHandler to work without
      * the following getters and setters.
      * 

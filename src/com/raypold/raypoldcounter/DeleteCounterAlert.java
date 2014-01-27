@@ -1,3 +1,11 @@
+/*
+ * Author: Michael Raypold
+ *  
+ * A copy of the license is available in LICENSE
+ *  
+ * Provides functionality to the action bar delete icon.
+ *  - All string resources are available in res/values/strings.xml or are dynamically created.
+ */
 package com.raypold.raypoldcounter;
 
 import android.app.AlertDialog;

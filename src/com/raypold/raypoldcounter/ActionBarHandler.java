@@ -1,7 +1,11 @@
 /*
  * Author: Michael Raypold
  * 
+ * A copy of the license is available in LICENSE
+ * 
  * ActionBarHandler is responsible for giving functionality to the action bar.
+ *  - The corresponding UI is handled in /menu/main_activity_actions.xml 
+ * 
  */
 package com.raypold.raypoldcounter;
 
@@ -19,8 +23,10 @@ public class ActionBarHandler extends MainActivity {
 		super();
 		this.item = item;
 		ActionBarHandler.context = applicationContext;
+		setOpenCounterName();
 	}
 	
+	/* Respond to the icon that the user clicked */
 	public boolean getAction() {
 		switch(item.getItemId()) {
 		case R.id.reset_counter:
@@ -35,9 +41,6 @@ public class ActionBarHandler extends MainActivity {
 		case R.id.counter_delete:
 			deleteCounter();
 			return true;
-		case R.id.help:
-			help();
-			return true;
 		}
 		return false;
 	}	
@@ -47,7 +50,6 @@ public class ActionBarHandler extends MainActivity {
 		openCounter.resetCurrentCount();
 		
 		CounterFragment.refreshDisplay();
-		// TODO will also need to refreshDispaly in savedCounters and summary
 		
 		Toast.makeText(context, String.format("%s has been reset", openCounterName), 
 				Toast.LENGTH_SHORT).show();
@@ -69,21 +71,17 @@ public class ActionBarHandler extends MainActivity {
         deleteAlert.show(MainActivity.getFragment(), "deleteCounterAlert");        
 	}
 	
-	private void help(){
-
-	}
-	
 	/* Intention of this method is to not have an openCounter attribute in the actionBar wasting memory all the time */
 	/* ActionBar buttons are not clicked very often */
 	public static Counter getOpenCounter() {
-		setOpenCounterName();
+		setOpenCounterName(); /* Ensure we have the most recent open counter */
 		Serialize serialize = new Serialize();
 		Counter openCounter = serialize.deserializeCounter(openCounterName);
 
 		return openCounter;
 	}
 	
-	public static void setOpenCounterName() {
+	private static void setOpenCounterName() {
 		Preferences userPreferences = new Preferences(context);
 		openCounterName = userPreferences.getLastOpenCounter();
 	}
