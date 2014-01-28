@@ -59,6 +59,9 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 			public void onClick(View v) {
 				openCounter.incrementCount();
 				displayCount();
+				/* Updates the list in saved counters tab to reflect new count */
+				SavedCounterFragment.refreshAdapter(); 
+
 			}
 			
 		});
@@ -71,6 +74,8 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 			public void onClick(View v) {
 				openCounter.decrementCount();
 				displayCount();
+				/* Updates the list in saved counters tab to reflect new count */
+				SavedCounterFragment.refreshAdapter(); 
 			}
 			
 		});
@@ -107,6 +112,7 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 
 		setTextDisplay();
 		displayCount();
+		SavedCounterFragment.refreshAdapter();
 	}
 	
 	@Override

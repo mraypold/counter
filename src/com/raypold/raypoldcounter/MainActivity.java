@@ -64,7 +64,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
-
+		
 		setTabNames();
 		
 		/* Create the navigation tabs and add them to the action bar */

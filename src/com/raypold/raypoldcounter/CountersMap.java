@@ -7,21 +7,22 @@
  *  It doesn't hold the actual counter since only the name and counter are the important information.
  *  
  *  The intention is to provide immediate O(1) access to the count for a counter when generating the saved counters and summary
- *  lists with the map data type.  
+ *  lists with the map data type. Hopefully this is quicker and uses significantly less memory then holding an ArrayList of Counters()  
  */
 package com.raypold.raypoldcounter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 @SuppressWarnings("serial")
 public class CountersMap implements Serializable {
 
 	private Map<String, Integer> countersMap;
 
+	/* See note on class design in header on why not hold an array of Counters() */
 	public CountersMap() {
 		super();
 		this.countersMap = new HashMap<String, Integer>();
@@ -77,13 +78,28 @@ public class CountersMap implements Serializable {
 		return counterName;
 	}
 	
-	// TODO 
-	public Set<Entry<String, Integer>> getOrderedList() {
-		Set<Entry<String, Integer>>counterSet = countersMap.entrySet();
-		Set<Entry<String, Integer>>orderedSet = null;
-		//http://javarevisited.blogspot.ca/2012/12/how-to-sort-hashmap-java-by-key-and-value.html		
+	/* Extremely inefficient algorithm. Fix if have time latter.
+	 *  */
+	public List<String> getOrderedList() {
+		/* Copy the map so we aren't destroying it */
+		Map<String, Integer> copiedMap = new HashMap<String, Integer>();
+		copiedMap = this.countersMap;
 		
-		return orderedSet;
+		List<String> orderedCounters = new ArrayList<String>();
+		
+		Integer size = this.countersMap.size();
+		
+		while(size > 0) {
+			String largestCounter = getLargestCountName();
+			orderedCounters.add(largestCounter);
+			this.countersMap.remove(largestCounter);
+			size--;
+		}
+		
+		/* Restore the old map */
+		this.countersMap = copiedMap;
+		
+		return orderedCounters;
 		
 	}
 }

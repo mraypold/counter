@@ -48,6 +48,8 @@ public class NewCounterAlert extends DialogFragment {
 								 */ 
 
 								CounterFragment.refreshDisplay();
+								SavedCounterFragment.refreshAdapter();
+								
 								Toast.makeText(MainActivity.context, R.string.counterCreated, Toast.LENGTH_SHORT).show();
 
 							}

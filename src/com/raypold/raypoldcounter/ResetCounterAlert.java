@@ -9,33 +9,21 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.widget.EditText;
 import android.widget.Toast;
 
-public class RenameCounterAlert extends DialogFragment {
+public class ResetCounterAlert extends DialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		LayoutInflater inflater = getActivity().getLayoutInflater();
 
-		builder.setView(inflater.inflate(R.layout.rename_counter, null))
-				.setTitle(R.string.RenameCounterMessage)
-				.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+		builder.setMessage(R.string.resetQuestion)
+				.setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
 							
 					@Override
 							public void onClick(DialogInterface dialog, int id) {
-
-								EditText textField = (EditText) getDialog().findViewById(R.id.renameCounterTextField);
-								
-								String newCounterName = textField.getText().toString();
-
 								Counter openCounter = ActionBarHandler.getOpenCounter();
-								openCounter.renameCounter(newCounterName);
-
-								Preferences userPreferences = new Preferences(MainActivity.context);
-								userPreferences.setLastOpenCounter(newCounterName);
+								openCounter.resetCurrentCount();
 
 								/*
 								 * Important note:
@@ -47,8 +35,8 @@ public class RenameCounterAlert extends DialogFragment {
 								CounterFragment.refreshDisplay();
 								SavedCounterFragment.refreshAdapter();
 								
-								Toast.makeText(MainActivity.context, R.string.renamed, Toast.LENGTH_SHORT).show();
-
+								Toast.makeText(MainActivity.context, String.format("%s has been reset", openCounter.getCounterName()), 
+										Toast.LENGTH_SHORT).show();
 							}
 						})
 

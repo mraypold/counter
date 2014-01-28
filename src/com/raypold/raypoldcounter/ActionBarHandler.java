@@ -11,7 +11,6 @@ package com.raypold.raypoldcounter;
 
 import android.content.Context;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class ActionBarHandler extends MainActivity {
 
@@ -46,14 +45,8 @@ public class ActionBarHandler extends MainActivity {
 	}	
 	
 	private void resetCounter() {	
-		Counter openCounter = getOpenCounter();
-		openCounter.resetCurrentCount();
-		
-		CounterFragment.refreshDisplay();
-		
-		Toast.makeText(context, String.format("%s has been reset", openCounterName), 
-				Toast.LENGTH_SHORT).show();
-		
+		ResetCounterAlert resetAlert = new ResetCounterAlert();
+		resetAlert.show(MainActivity.getFragment(), "ResetCounterAlert");
 	}
 	
 	private void renameCounter() {
