@@ -15,6 +15,7 @@ public class Preferences {
 	/* Attributes for accessing key/value in sharedPreferences */
 	private final String LASTOPENCOUNTERKEY = "lastOpenCounter";
 	private final String FIRSTRUN = "isFirstRun";
+	private final String DISPLAYCOUNTSTYPE = "displayCountsType";
 	private final String PREFERENCESFILE = "userPreferences";
 
 	private SharedPreferences userPreferences;
@@ -48,6 +49,16 @@ public class Preferences {
 		this.userPreferences = preferences;
 	}
 	
+	/* This would be better modeled with booleans for hour day week month */
+	public void setDisplayCountsType(String type) {
+		Editor editor = userPreferences.edit();
+		editor.putString(DISPLAYCOUNTSTYPE, type);
+		editor.commit();
+	}
+	
+	public String getDisplayCountsType() {
+		return userPreferences.getString(DISPLAYCOUNTSTYPE, "day");
+	}
 	public Boolean isFirstRun() {
 		return userPreferences.getBoolean(FIRSTRUN, true);
 	}

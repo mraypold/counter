@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
-
-/**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- * 
- */
 public class CounterSummaryFragment extends Fragment {
 
 	private View inflatedView;
@@ -32,7 +29,23 @@ public class CounterSummaryFragment extends Fragment {
 		ListView list = (ListView)inflatedView.findViewById(R.id.listViewSummary);
 		list.setAdapter(adapter);
 	    
+		Button changeList = (Button) inflatedView.findViewById(R.id.changeDateView);
+		changeList.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				/* Launch and alert dialog asking for how to display content */
+				AlertChangeListSummary changeView = new AlertChangeListSummary();
+				changeView.show(MainActivity.getFragment(), "ChangeListView");
+			}
+			
+		});
+		
 		return inflatedView;
 	}
 
+	
+	public void refreshSummary() {
+		
+	}
 }

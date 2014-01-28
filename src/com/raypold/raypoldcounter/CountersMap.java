@@ -41,6 +41,10 @@ public class CountersMap implements Serializable {
 		countersMap.put(counterName, count);
 	}
 
+	public Integer getCount(String counterName) {
+		return countersMap.get(counterName);
+	}
+	
 	public void setCount(String counterName, Integer count) {
 		countersMap.put(counterName, count);
 	}

@@ -8,7 +8,9 @@
     <string name="counter">Counter</string>
     <string name="saved_counters">Saved Counters</string>
     <string name="summary">Summary</string>
-        
+    
+    <!-- Button choices -->
+    <string name="changeDateViewStyle">Change Display Preferences</string>
     
     <!-- Toast messages -->
     <string name="defaultCounterMessage">A default counter has been created for you.</string>
@@ -41,7 +43,7 @@
     <string name="RenameCounterMessage">Enter a new counter name</string>
     <string name="renamed">The counter has been renamed</string>
 	<string name="counterCreated">A new counter has been created</string>
-	
+	<string name= "changeView">Display counts by:</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete Counter</string>
