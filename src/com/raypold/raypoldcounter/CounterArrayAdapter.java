@@ -1,16 +1,14 @@
 package com.raypold.raypoldcounter;
 
 import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class CounterArrayAdapter extends ArrayAdapter<String>{
+public class CounterArrayAdapter extends ArrayAdapter<String> {
 
 	private List<String> counters = null;
 	
@@ -47,10 +45,5 @@ public class CounterArrayAdapter extends ArrayAdapter<String>{
 		return lineToDisplay;
 				
 	}
-	
-	@Override  
-	public String getItem(int position) {     
-	    return counters.get(position);  
-	}  
 
 }

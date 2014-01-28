@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class CounterSummaryFragment extends Fragment {
 
@@ -28,7 +31,16 @@ public class CounterSummaryFragment extends Fragment {
 		
 		ListView list = (ListView)inflatedView.findViewById(R.id.listViewSummary);
 		list.setAdapter(adapter);
-	    
+		list.setOnItemClickListener(new OnItemClickListener()
+		{
+		    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+		    {
+				Toast.makeText(MainActivity.context, "hi", 
+						Toast.LENGTH_SHORT).show();
+
+		    }
+		});
+		
 		Button changeList = (Button) inflatedView.findViewById(R.id.changeDateView);
 		changeList.setOnClickListener(new OnClickListener() {
 
@@ -43,7 +55,6 @@ public class CounterSummaryFragment extends Fragment {
 		
 		return inflatedView;
 	}
-
 	
 	public void refreshSummary() {
 		
