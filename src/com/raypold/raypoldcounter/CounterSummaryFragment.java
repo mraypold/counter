@@ -1,5 +1,8 @@
 package com.raypold.raypoldcounter;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,7 +29,14 @@ public class CounterSummaryFragment extends Fragment {
 			Bundle savedInstanceState) {
 		inflatedView = inflater.inflate(R.layout.fragment_counter_summary, container,
 				false);
-		String[] items = {"one", "two", "three"};
+		//String[] items = {"one", "two", "three"};
+		Preferences preferences = new Preferences(MainActivity.context);
+		String counterName = preferences.getLastOpenCounter();
+		Serialize serialize = new Serialize();
+		Counter counter = serialize.deserializeCounter(counterName);
+		PrettyDate date = new PrettyDate(counter);
+		ArrayList<String> items = date.prettyDatesByHour();
+		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.summary_item, items);
 		
 		ListView list = (ListView)inflatedView.findViewById(R.id.listViewSummary);
