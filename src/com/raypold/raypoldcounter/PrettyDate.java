@@ -44,7 +44,7 @@ public class PrettyDate extends DateRetriever {
 		datesByWeek = concatStrings(dateObject);
 		
 		/* Concat with Month on the front of the returned list */
-		datesByWeek = concatWithPrefix(datesByWeek, "Week of");
+		datesByWeek = concatWithPrefix(datesByWeek, "Week of ");
 		
 		return datesByWeek;
 		
@@ -59,7 +59,7 @@ public class PrettyDate extends DateRetriever {
 		datesByMonth = concatStrings(dateObject);
 		
 		/* Concat with Month on the front of the returned list */
-		datesByMonth = concatWithPrefix(datesByMonth, "Month of");
+		datesByMonth = concatWithPrefix(datesByMonth, "Month of ");
 		
 		return datesByMonth;
 		

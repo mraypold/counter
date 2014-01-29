@@ -1,6 +1,5 @@
 package com.raypold.raypoldcounter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -18,7 +17,10 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class CounterSummaryFragment extends Fragment {
 
-	private View inflatedView;
+	private static View inflatedView;
+	private static ListView list;
+	private static ArrayList<String> items;
+	private static ArrayAdapter<String> adapter;	
 
 	public CounterSummaryFragment() {
 	
@@ -29,18 +31,33 @@ public class CounterSummaryFragment extends Fragment {
 			Bundle savedInstanceState) {
 		inflatedView = inflater.inflate(R.layout.fragment_counter_summary, container,
 				false);
-		//String[] items = {"one", "two", "three"};
+
+		/* Get currently open counter */
 		Preferences preferences = new Preferences(MainActivity.context);
 		String counterName = preferences.getLastOpenCounter();
+		
+		/* Open appropriate counter file */
 		Serialize serialize = new Serialize();
 		Counter counter = serialize.deserializeCounter(counterName);
+		
+		/* Print the date */
 		PrettyDate date = new PrettyDate(counter);
-		ArrayList<String> items = date.prettyDatesByHour();
+		switch(preferences.getDisplayCountsType()) {
+		case 0:
+			items = date.prettyDatesByHour();
+		case 1:
+			items = date.prettyDatesByDay();
+		case 2:
+			items = date.prettyDatesByWeek();
+		case 3:
+			items = date.prettyDatesByMonth();
+		}
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.summary_item, items);
-		
-		ListView list = (ListView)inflatedView.findViewById(R.id.listViewSummary);
+		adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.summary_item, items);
+
+		list = (ListView)inflatedView.findViewById(R.id.listViewSummary);
 		list.setAdapter(adapter);
+		
 		list.setOnItemClickListener(new OnItemClickListener()
 		{
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -66,7 +83,4 @@ public class CounterSummaryFragment extends Fragment {
 		return inflatedView;
 	}
 	
-	public void refreshSummary() {
-		
-	}
 }

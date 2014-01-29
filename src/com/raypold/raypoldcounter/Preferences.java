@@ -50,14 +50,19 @@ public class Preferences {
 	}
 	
 	/* This would be better modeled with booleans for hour day week month */
-	public void setDisplayCountsType(String type) {
+	public void setDisplayCountsType(int type) {
+		/* hour = 0
+		 * day = 1
+		 * week = 2
+		 * month = 3
+		 */
 		Editor editor = userPreferences.edit();
-		editor.putString(DISPLAYCOUNTSTYPE, type);
+		editor.putInt(DISPLAYCOUNTSTYPE, type);
 		editor.commit();
 	}
 	
-	public String getDisplayCountsType() {
-		return userPreferences.getString(DISPLAYCOUNTSTYPE, "day");
+	public int getDisplayCountsType() {
+		return userPreferences.getInt(DISPLAYCOUNTSTYPE, 0);
 	}
 	public Boolean isFirstRun() {
 		return userPreferences.getBoolean(FIRSTRUN, true);

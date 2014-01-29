@@ -14,30 +14,34 @@ public class DateRetriever {
 		this.dates = counter.getDates();
 	}
 
-	/* Returns a list of strings of all truncated dates in the open counter */
-	public ArrayList<String> getDatesByHour() {
-		ArrayList<String> datesByHour = new ArrayList<String>();
-		SimpleDateFormat curDate = new SimpleDateFormat("MMM dd hh':00'a");
-
+	/* Inserts the counter dates in the given simpledateformat format into an ArrayList */
+	private ArrayList<String> insertDatesToArray(SimpleDateFormat curDate) {
+		ArrayList<String> datesByPeriod = new ArrayList<String>();
+		
 		for(Date date: this.dates) {
 			String dateToString = curDate.format(date);
-			datesByHour.add(dateToString);
+			datesByPeriod.add(dateToString);
 		}
+		
+		return datesByPeriod;
+	}
+	
+	/* Returns a list of strings of all truncated dates in the open counter */
+	public ArrayList<String> getDatesByHour() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd hh':00'a");
+
+		ArrayList<String> datesByHour = insertDatesToArray(dateFormat);
 
 		return datesByHour;
 	}
 	
 	/* Returns a list of strings of all truncated dates in the open counter	*/
 	public ArrayList<String> getDatesByDay() {
-		ArrayList<String> datesByHour = new ArrayList<String>();
-		SimpleDateFormat curDate = new SimpleDateFormat("MMM dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
 
-		for(Date date: this.dates) {
-			String dateToString = curDate.format(date);
-			datesByHour.add(dateToString);
-		}
+		ArrayList<String> datesByDay = insertDatesToArray(dateFormat);
 
-		return datesByHour;
+		return datesByDay;
 	}
 	
 	/* Returns a list of strings of all truncated dates in the open counter
@@ -47,14 +51,23 @@ public class DateRetriever {
 	 */
 	public ArrayList<String> getDatesByWeek() {
 		ArrayList<String> datesByHour = new ArrayList<String>();
-		SimpleDateFormat curDate = new SimpleDateFormat("MMM WW");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM");
+		SimpleDateFormat weekDay = new SimpleDateFormat("dd");
 		
+		/* Add the start day of the week and truncate the week number */
 		for(Date date: this.dates) {
-			/* Get the first day of the week */
+			/* Set the time to the current date in the iteration */
 			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(this.dates.get(0));
+			calendar.setTime(date);
 
-			String dateToString = curDate.format(date);
+			/* Get first day of the week and retrieve a string representation */
+			Integer dayNumber = calendar.get(Calendar.DAY_OF_WEEK) - calendar.getFirstDayOfWeek();
+			calendar.add(Calendar.DAY_OF_MONTH, - dayNumber);
+			String dayOfWeek = weekDay.format(calendar.getTime());
+			
+			/* Concat the month with the weekday number */
+			String dateToString = dateFormat.format(date);
+			dateToString = dateToString.concat(" " + dayOfWeek);
 			datesByHour.add(dateToString);
 		}
 
@@ -63,13 +76,9 @@ public class DateRetriever {
 	
 	/* Returns a list of strings of all truncated dates in the open counter */
 	public ArrayList<String> getDatesByMonth() {
-		ArrayList<String> datesByHour = new ArrayList<String>();
-		SimpleDateFormat curDate = new SimpleDateFormat("MMM");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM");
 
-		for(Date date: this.dates) {
-			String dateToString = curDate.format(date);
-			datesByHour.add(dateToString);
-		}
+		ArrayList<String> datesByHour = insertDatesToArray(dateFormat);
 
 		return datesByHour;
 	}

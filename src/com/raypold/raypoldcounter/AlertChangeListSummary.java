@@ -21,16 +21,14 @@ public class AlertChangeListSummary extends DialogFragment {
 								MainActivity.context);
 						switch (which) {
 						case 0:
-							preferences.setDisplayCountsType("hour");
+							preferences.setDisplayCountsType(0);
 						case 1:
-							preferences.setDisplayCountsType("day");
+							preferences.setDisplayCountsType(1);
 						case 2:
-							preferences.setDisplayCountsType("week");
+							preferences.setDisplayCountsType(2);
 						case 3:
-							preferences.setDisplayCountsType("month");
+							preferences.setDisplayCountsType(3);
 						}
-						// Now update the list view in counter summary tab
-						
 					}
 				});
 		return builder.create();
