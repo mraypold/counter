@@ -12,6 +12,10 @@
     <!-- Button choices -->
     <string name="changeDateViewStyle">Change Display Preferences</string>
     
+    <!-- Date localaization -->
+    <string name="month_of">Month of</string>
+    <string name="week_of">Week of</string>
+    
     <!-- Toast messages -->
     <string name="defaultCounterMessage">A default counter has been created for you.</string>
     

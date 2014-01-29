@@ -17,11 +17,51 @@ public class PrettyDate extends DateRetriever {
 				
 		/* Find the frequency of each date so that we can concat date with count */
 		DateOrderFrequency dateObject = findFrequency(datesByHour);
-		
-		/* Concat the date and count together */
 		datesByHour = concatStrings(dateObject);
 		
 		return datesByHour;
+		
+	}
+	
+	/* Takes getDatesByHour and formats strings according to project specifications */
+	public ArrayList<String> prettyDatesByDay() {
+		ArrayList<String> datesByDay = new ArrayList<String>(super.getDatesByDay());
+				
+		/* Find the frequency of each date so that we can concat date with count */
+		DateOrderFrequency dateObject = findFrequency(datesByDay);		
+		datesByDay = concatStrings(dateObject);
+		
+		return datesByDay;
+		
+	}
+	
+	/* Takes getDatesByWeek and formats strings according to project specifications */
+	public ArrayList<String> prettyDatesByWeek() {
+		ArrayList<String> datesByWeek = new ArrayList<String>(super.getDatesByWeek());
+				
+		/* Find the frequency of each date so that we can concat date with count */
+		DateOrderFrequency dateObject = findFrequency(datesByWeek);		
+		datesByWeek = concatStrings(dateObject);
+		
+		/* Concat with Month on the front of the returned list */
+		datesByWeek = concatWithPrefix(datesByWeek, "Week of");
+		
+		return datesByWeek;
+		
+	}
+	
+	/* Takes getDatesByMonth and formats strings according to project specifications */
+	public ArrayList<String> prettyDatesByMonth() {
+		ArrayList<String> datesByMonth = new ArrayList<String>(super.getDatesByMonth());
+				
+		/* Find the frequency of each date so that we can concat date with count */
+		DateOrderFrequency dateObject = findFrequency(datesByMonth);		
+		datesByMonth = concatStrings(dateObject);
+		
+		/* Concat with Month on the front of the returned list */
+		datesByMonth = concatWithPrefix(datesByMonth, "Month of");
+		
+		return datesByMonth;
 		
 	}
 	
@@ -54,5 +94,15 @@ public class PrettyDate extends DateRetriever {
 		}
 		
 		return datesFinal;
+	}
+	
+	private ArrayList<String> concatWithPrefix(ArrayList<String> list, String prefix) {
+		ArrayList<String> withPrefix = new ArrayList<String>();
+		
+		for(String date : list) {
+			withPrefix.add(prefix.concat(date));
+		}
+		
+		return withPrefix;
 	}
 }
