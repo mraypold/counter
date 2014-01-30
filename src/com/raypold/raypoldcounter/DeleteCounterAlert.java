@@ -63,6 +63,7 @@ public class DeleteCounterAlert extends DialogFragment {
 
 					CounterFragment.refreshDisplay();
 					SavedCounterFragment.refreshAdapter();
+					CounterSummaryFragment.refreshSummary();
 					
 				}
 			})

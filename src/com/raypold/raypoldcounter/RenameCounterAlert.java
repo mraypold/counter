@@ -46,6 +46,7 @@ public class RenameCounterAlert extends DialogFragment {
 
 								CounterFragment.refreshDisplay();
 								SavedCounterFragment.refreshAdapter();
+								CounterSummaryFragment.refreshSummary();
 								
 								Toast.makeText(MainActivity.context, R.string.renamed, Toast.LENGTH_SHORT).show();
 

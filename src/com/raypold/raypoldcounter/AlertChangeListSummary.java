@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 
 public class AlertChangeListSummary extends DialogFragment {
 
@@ -19,15 +20,22 @@ public class AlertChangeListSummary extends DialogFragment {
 						// of the selected item
 						Preferences preferences = new Preferences(
 								MainActivity.context);
-						switch (which) {
+						switch(which){
 						case 0:
 							preferences.setDisplayCountsType(0);
+							break;
 						case 1:
 							preferences.setDisplayCountsType(1);
+							break;
 						case 2:
 							preferences.setDisplayCountsType(2);
+							break;
 						case 3:
 							preferences.setDisplayCountsType(3);
+							break;
+						default:
+							preferences.setDisplayCountsType(0);
+							break;
 						}
 					}
 				});

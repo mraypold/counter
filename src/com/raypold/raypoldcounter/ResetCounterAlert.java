@@ -34,6 +34,7 @@ public class ResetCounterAlert extends DialogFragment {
 
 								CounterFragment.refreshDisplay();
 								SavedCounterFragment.refreshAdapter();
+								CounterSummaryFragment.refreshSummary();
 								
 								Toast.makeText(MainActivity.context, String.format("%s has been reset", openCounter.getCounterName()), 
 										Toast.LENGTH_SHORT).show();
