@@ -11,10 +11,7 @@
     <ListView
         android:id="@+id/listViewSavedCounters"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:focusableInTouchMode="false"
-		android:clickable="false"
-		android:focusable="false" >
+        android:layout_height="wrap_content"  >
     </ListView>
 
 </LinearLayout>

@@ -10,11 +10,7 @@ package com.raypold.raypoldcounter;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 @SuppressWarnings("serial")
 public class Counter implements Serializable {

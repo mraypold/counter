@@ -18,6 +18,7 @@
     
     <!-- Toast messages -->
     <string name="defaultCounterMessage">A default counter has been created for you.</string>
+    <string name="switchedCounters">Switched to counter </string>
     
     <!-- General strings used in multiple views and the action bar -->
     <string name="deleteCounter">Delete counter</string>
@@ -53,11 +54,5 @@
     <string name="delete">Delete Counter</string>
     <string name="reset">Reset</string>
     
-    <!-- Help menu dialog -->
-    <string name="helpReset">Reset current counter</string>
-    <string name="helpRename">Rename current counter</string>
-    <string name="helpNewCounter">Create and switch to new counter</string>
-    <string name="helpDelete">Deletes current counter</string>
-    <string name="helpHelp">Brings up the help menu</string>
     
 </resources>

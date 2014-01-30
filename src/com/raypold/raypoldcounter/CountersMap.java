@@ -14,13 +14,11 @@ package com.raypold.raypoldcounter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings("serial")
 public class CountersMap implements Serializable {
 
-	private Map<String, Integer> countersMap;
+	protected HashMap<String, Integer> countersMap;
 
 	/* See note on class design in header on why not hold an array of Counters() */
 	public CountersMap() {
@@ -42,7 +40,7 @@ public class CountersMap implements Serializable {
 	}
 
 	public Integer getCount(String counterName) {
-		return countersMap.get(counterName);
+		return this.countersMap.get(counterName);
 	}
 	
 	public void setCount(String counterName, Integer count) {
@@ -84,14 +82,13 @@ public class CountersMap implements Serializable {
 	
 	/* Extremely inefficient algorithm. Fix if have time latter.
 	 *  */
-	public List<String> getOrderedList() {
+	public ArrayList<String> getOrderedList() {
 		/* Copy the map so we aren't destroying it */
-		Map<String, Integer> copiedMap = new HashMap<String, Integer>();
-		copiedMap = this.countersMap;
+		// This shallow copy bug took me over an hour to find :(
+		HashMap<String, Integer> copiedMap = new HashMap<String, Integer>(countersMap);
+		ArrayList<String> orderedCounters = new ArrayList<String>();
 		
-		List<String> orderedCounters = new ArrayList<String>();
-		
-		Integer size = this.countersMap.size();
+		Integer size = countersMap.size();
 		
 		while(size > 0) {
 			String largestCounter = getLargestCountName();
@@ -101,7 +98,7 @@ public class CountersMap implements Serializable {
 		}
 		
 		/* Restore the old map */
-		this.countersMap = copiedMap;
+		countersMap = new HashMap<String, Integer>(copiedMap);
 		
 		return orderedCounters;
 		
