@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Counter</string>
+    <string name="app_name">Raypold</string>
     <string name="defaultCounterName">Counter</string>
+    
+    <string name="clickCounter">Select a counter to swap open counters</string>
     
     <!-- Tab fragment names -->
     <string name="counter">Counter</string>
@@ -19,6 +21,7 @@
     <!-- Toast messages -->
     <string name="defaultCounterMessage">A default counter has been created for you.</string>
     <string name="switchedCounters">Switched to counter </string>
+    <string name="alreadyExists">A counter with that name already exists!</string>
     
     <!-- General strings used in multiple views and the action bar -->
     <string name="deleteCounter">Delete counter</string>

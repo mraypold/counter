@@ -1,11 +1,19 @@
+/*
+ * Author: Michael Raypold
+ * 
+ * Responsible for UI functionality
+ * 	- Creating a list of counters and their counts
+ * 	- Allowing the user to click a counter to switch counters
+ * 
+ * I did not create a custom array adapter mainly to save time.
+ * 
+ */
 package com.raypold.raypoldcounter;
 
 import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

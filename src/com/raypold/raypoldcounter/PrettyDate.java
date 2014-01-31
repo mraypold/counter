@@ -1,3 +1,13 @@
+/*
+ * Author: Michael Raypold
+ * 
+ * Concatenates counter counts with dates.
+ * 
+ * Extends DateRetriever which returns String of dates per time period.
+ * 
+ * PrettyDate with not return as string if the count == 0 for that time period.
+ * 
+ */
 package com.raypold.raypoldcounter;
 
 import java.util.ArrayList;
@@ -43,7 +53,7 @@ public class PrettyDate extends DateRetriever {
 		DateOrderFrequency dateObject = findFrequency(datesByWeek);		
 		datesByWeek = concatStrings(dateObject);
 		
-		/* Concat with Month on the front of the returned list */
+		/* Concat with Week on the front of the returned list */
 		datesByWeek = concatWithPrefix(datesByWeek, "Week of ");
 		
 		return datesByWeek;

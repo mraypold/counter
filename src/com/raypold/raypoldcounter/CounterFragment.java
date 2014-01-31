@@ -48,6 +48,7 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		Serialize deserialize = new Serialize();
 		openCounter = deserialize.deserializeCounter(workingCounterName);
 		
+		/* Refresh the UI */
 		setTextDisplay();
 		displayCount();
 		
@@ -105,6 +106,9 @@ public class CounterFragment extends Fragment implements View.OnClickListener {
 		/* 
 		 * Not an ideal solution since high I/O overhead, but ensures that the counter stays in sync with changes from
 		 * the actionBar and other fragment tabs.
+		 * 
+		 * If redesigning the application, I would keep an open counter in the MainActivity and then have getters and setters
+		 * to ensure all fragments are using the same counter.
 		 * */
 		
 		workingCounterName = userPreferences.getLastOpenCounter();

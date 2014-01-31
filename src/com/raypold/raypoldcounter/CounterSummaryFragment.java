@@ -1,3 +1,12 @@
+/*
+ *  Author: Michael Raypold
+ *  
+ *  A copy of the license is available in LICENSE
+ * 
+ *  Contains all the UI functionality to display counts by their date.
+ *  
+ *  If users doesn't specify list order, it is assumed that order is by hour.
+ */
 package com.raypold.raypoldcounter;
 
 import java.util.ArrayList;

@@ -35,24 +35,33 @@ public class NewCounterAlert extends DialogFragment {
 								
 								String newCounterName = textField.getText().toString();
 
-								Counter newCounter = new Counter(newCounterName);
-								newCounter.saveCount();
-
-								Preferences userPreferences = new Preferences(MainActivity.context);
-								userPreferences.setLastOpenCounter(newCounterName);
+								/* Check if a counter of this name exists already */
+								Serialize serialize = new Serialize();
+								CountersMap counters = new CountersMap();
+								counters = serialize.deserializeCountersMap();
 								
-								/* Important note:
-								 * 
-								 * Must call the fragments to refresh display from within this code, since Android will continue running
-								 * other threads while it waits for the user to confirm their action.
-								 */ 
-
-								CounterFragment.refreshDisplay();
-								SavedCounterFragment.refreshAdapter();
-								CounterSummaryFragment.refreshSummary();
-								
-								Toast.makeText(MainActivity.context, R.string.counterCreated, Toast.LENGTH_SHORT).show();
-
+								if(counters.contains(newCounterName)){
+									Toast.makeText(MainActivity.context, R.string.alreadyExists, Toast.LENGTH_SHORT).show();
+								}
+								else{
+									Counter newCounter = new Counter(newCounterName);
+									newCounter.saveCount();
+									
+									Preferences userPreferences = new Preferences(MainActivity.context);
+									userPreferences.setLastOpenCounter(newCounterName);
+									
+									/* Important note:
+									 * 
+									 * Must call the fragments to refresh display from within this code, since Android will continue running
+									 * other threads while it waits for the user to confirm their action.
+									 */ 
+	
+									CounterFragment.refreshDisplay();
+									SavedCounterFragment.refreshAdapter();
+									CounterSummaryFragment.refreshSummary();
+									
+									Toast.makeText(MainActivity.context, R.string.counterCreated, Toast.LENGTH_SHORT).show();
+								}
 							}
 						})
 

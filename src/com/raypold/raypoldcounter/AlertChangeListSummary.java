@@ -1,3 +1,11 @@
+/*
+ * Author: Michael Raypold
+ * 
+ * A copy of the license is available in LICENSE
+ * 
+ * Called when the user asks to change display preferences from hour to day to week, etc...
+ * 
+ */
 package com.raypold.raypoldcounter;
 
 import android.app.AlertDialog;
@@ -5,7 +13,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 
 public class AlertChangeListSummary extends DialogFragment {
 
@@ -14,10 +21,10 @@ public class AlertChangeListSummary extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(R.string.changeView).setItems(R.array.dialogViewArray,
+				
 				new DialogInterface.OnClickListener() {
+					
 					public void onClick(DialogInterface dialog, int which) {
-						// The 'which' argument contains the index position
-						// of the selected item
 						Preferences preferences = new Preferences(
 								MainActivity.context);
 						switch(which){
@@ -37,6 +44,7 @@ public class AlertChangeListSummary extends DialogFragment {
 							preferences.setDisplayCountsType(0);
 							break;
 						}
+						CounterSummaryFragment.refreshSummary();
 					}
 				});
 		return builder.create();

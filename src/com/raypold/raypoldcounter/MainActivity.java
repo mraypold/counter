@@ -36,7 +36,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	/* NUMBEROFTABS must be the same as the size of the tabNames list!
 	 * */
 	public final static int NUMBEROFTABS = 3;
-	public String[] tabNames = {};  // see setTabNames();       
+	public String[] tabNames = {};  // setTabNames() pull data from strings.xml;       
 													
 	public ActionBar actionBar;
 	public static ViewPager viewPager;

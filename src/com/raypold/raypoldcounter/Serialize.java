@@ -1,3 +1,12 @@
+/*
+ * Author: Michael Raypold
+ * 
+ * Responsible for saving/loading/deleting counters and countersmap
+ *  - Serializes objects in .dat to the android file system
+ *  - No legitimate reason for .dat other then I got it working before JSON
+ * 	- Error checking needs to be handled better. Right now, just an exception is thrown.
+ *  - Error will be thrown if user physically deletes file from disk instead of having the app do it. 
+ */
 package com.raypold.raypoldcounter;
 
 import java.io.File;
@@ -31,6 +40,7 @@ public class Serialize extends Activity {
 		}
 	}
 
+	/* Serialize the counter map containing a map of all created counters */
 	public void serializeCountersMap(CountersMap counters) {
 		try {
 			FileOutputStream fileStream = MainActivity.context.openFileOutput(COUNTERSFILE, 0);
@@ -47,6 +57,8 @@ public class Serialize extends Activity {
 		}
 	}
 	
+	/* Return a counter after deserializing with the specified counter name */
+	/* Counter name is first retrieved either from CountersMap of Preferences */
 	public Counter deserializeCounter(String counterName) {
 		Counter counter = new Counter(counterName);
 
@@ -93,6 +105,7 @@ public class Serialize extends Activity {
 		return map;
 	}
 	
+	/* Permanently delete counter file from disk */
 	public void deleteCounterFile(String counterName) {
 		try {
 			File counter = new File(counterName.concat(".dat"));

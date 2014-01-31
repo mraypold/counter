@@ -5,6 +5,8 @@
  * 
  * Counter provides all the basic functionality of a tally counter.
  * 
+ * Full functionality of this class requires CountersMap and Serialize
+ * 
  */
 package com.raypold.raypoldcounter;
 
@@ -33,6 +35,7 @@ public class Counter implements Serializable {
 		this.currentCount = value;
 	}
 	
+	/* Start a new date list and reset the counter */
 	public void resetCurrentCount() {
 		this.dates = new ArrayList<Date>();
 		setCurrentCount(0);
@@ -42,7 +45,11 @@ public class Counter implements Serializable {
 	public String getCounterName() {
 		return counterName;
 	}
-
+	
+	public ArrayList<Date> getDates() {
+		return this.dates;
+	}
+	
 	private void setCounterName(String counterName) {
 		this.counterName = counterName;
 	}
@@ -76,12 +83,15 @@ public class Counter implements Serializable {
 		CountersMap savedCounters = new CountersMap();
 		Serialize serialize = new Serialize();
 		
+		/* Open countersMap which contains map of all counters and counts */
 		savedCounters = serialize.deserializeCountersMap();
+
+		/* Save the counter to the map */
 		savedCounters.insertCounter(this.counterName, this.currentCount);
-		
 		serialize.serializeCountersMap(savedCounters);
 		serialize.serializeCounter(this);
 		
+		/* Set the last open counter to this counter */
 		Preferences userPreferences = new Preferences(MainActivity.context);
 		userPreferences.setLastOpenCounter(this.counterName);
 	}
@@ -90,15 +100,13 @@ public class Counter implements Serializable {
 		CountersMap savedCounters = new CountersMap();
 		Serialize serialize = new Serialize();
 
+		/* Open countersMap which contains map of all counters and counts */
 		savedCounters = serialize.deserializeCountersMap();
-		savedCounters.deleteCounter(this.counterName);
 		
+		/* Delete counter in map and disk */
+		savedCounters.deleteCounter(this.counterName);
 		serialize.serializeCountersMap(savedCounters);
 		serialize.deleteCounterFile(this.counterName);	
-	}
-	
-	public ArrayList<Date> getDates() {
-		return this.dates;
 	}
 	
 }

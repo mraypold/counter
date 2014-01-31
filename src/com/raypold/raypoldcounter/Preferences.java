@@ -49,7 +49,7 @@ public class Preferences {
 		this.userPreferences = preferences;
 	}
 	
-	/* This would be better modeled with booleans for hour day week month */
+	/* Prefererences for how the user wants to view the list of counter dates */
 	public void setDisplayCountsType(int type) {
 		/* hour = 0
 		 * day = 1
@@ -61,9 +61,12 @@ public class Preferences {
 		editor.commit();
 	}
 	
+	/* Returns hour, day, week, month date preferences */
 	public int getDisplayCountsType() {
 		return userPreferences.getInt(DISPLAYCOUNTSTYPE, 0);
 	}
+	
+	/* Responds true if first time application has run */
 	public Boolean isFirstRun() {
 		return userPreferences.getBoolean(FIRSTRUN, true);
 	}

@@ -11,7 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/* Adapter will take data and display it to screen */
+/* Adapter will take data and display fragments to screen */
 class FragmentAdapter extends FragmentPagerAdapter{
 	
 	public FragmentAdapter(FragmentManager fm) {

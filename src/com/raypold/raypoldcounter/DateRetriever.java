@@ -1,3 +1,13 @@
+/*
+ *  Author: Michael Raypold
+ *  
+ *  A copy of the license is available in LICENSE
+ *  
+ *  Retrieves dates from a given counter. Returns the dates according to the specified
+ *  format in the function.
+ *  
+ *  Dates are returned as strings for PrettyDate implementation.
+ */
 package com.raypold.raypoldcounter;
 
 import java.sql.Date;
@@ -14,7 +24,7 @@ public class DateRetriever {
 		this.dates = counter.getDates();
 	}
 
-	/* Inserts the counter dates in the given simpledateformat format into an ArrayList */
+	/* Inserts the counter dates in the given simpledateformat format into an ArrayList of Strings*/
 	private ArrayList<String> insertDatesToArray(SimpleDateFormat curDate) {
 		ArrayList<String> datesByPeriod = new ArrayList<String>();
 		
@@ -65,7 +75,7 @@ public class DateRetriever {
 			calendar.add(Calendar.DAY_OF_MONTH, - dayNumber);
 			String dayOfWeek = weekDay.format(calendar.getTime());
 			
-			/* Concat the month with the weekday number */
+			/* Concat the Month with the weekday number */
 			String dateToString = dateFormat.format(date);
 			dateToString = dateToString.concat(" " + dayOfWeek);
 			datesByHour.add(dateToString);

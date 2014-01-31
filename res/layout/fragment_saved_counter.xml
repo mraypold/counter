@@ -8,6 +8,14 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <TextView
+        android:id="@+id/counterSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/clickCounter"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <ListView
         android:id="@+id/listViewSavedCounters"
         android:layout_width="match_parent"

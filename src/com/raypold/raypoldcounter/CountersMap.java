@@ -55,10 +55,11 @@ public class CountersMap implements Serializable {
 		return countersMap.isEmpty();
 	}
 	
+	/* Not case sensitive.. Need to see how android file system handles case */
 	/* Intended to be used during creation of new counters from the action bar so as to 
 	 * not overwrite .dat serialized class files.
 	 * */
-	public Boolean containsCounter(String counterName) {
+	public Boolean contains(String counterName) {
 		return countersMap.containsKey(counterName);
 	}
 	
@@ -67,6 +68,9 @@ public class CountersMap implements Serializable {
 		String counterName = null;
 		Integer highestCount = 0;
 		
+		/* Iteratate over set of keys and compare each value to the saved
+		 * highestCount.
+		 */
 		for (String key : countersMap.keySet()) {
 			Integer keyCount = countersMap.get(key);
 			
@@ -80,8 +84,6 @@ public class CountersMap implements Serializable {
 		return counterName;
 	}
 	
-	/* Extremely inefficient algorithm. Fix if have time latter.
-	 *  */
 	public ArrayList<String> getOrderedList() {
 		/* Copy the map so we aren't destroying it */
 		// This shallow copy bug took me over an hour to find :(
@@ -90,6 +92,7 @@ public class CountersMap implements Serializable {
 		
 		Integer size = countersMap.size();
 		
+		/* Add the next largest counter to the orderedCounters array until none left */
 		while(size > 0) {
 			String largestCounter = getLargestCountName();
 			orderedCounters.add(largestCounter);

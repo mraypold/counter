@@ -1,3 +1,8 @@
+/*
+ *  Author: Michael Raypold
+ *  
+ *  A copy of the license is available in LICENSE
+ */
 package com.raypold.raypoldcounter;
 
 import java.util.HashMap;
@@ -9,6 +14,8 @@ import java.util.LinkedHashSet;
 
 public class DateOrderFrequency {
 	
+	/* LinkedHashSet is used to maintain order of dates */
+	/* HashMap is for speed since we will know the name when iterating over LinkedHashSet */
 	private LinkedHashSet<String> dateSet;;
 	private HashMap<String, Integer> dateMap;
 	

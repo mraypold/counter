@@ -31,25 +31,34 @@ public class RenameCounterAlert extends DialogFragment {
 								
 								String newCounterName = textField.getText().toString();
 
-								Counter openCounter = ActionBarHandler.getOpenCounter();
-								openCounter.renameCounter(newCounterName);
-
-								Preferences userPreferences = new Preferences(MainActivity.context);
-								userPreferences.setLastOpenCounter(newCounterName);
-
-								/*
-								 * Important note:
-								 * 
-								 * Must call the fragments to refresh display from within this code, since Android will continue running
-								 * other threads while it waits for the user to confirm their action.
-								 */
-
-								CounterFragment.refreshDisplay();
-								SavedCounterFragment.refreshAdapter();
-								CounterSummaryFragment.refreshSummary();
+								/* Check if a counter of this name exists already */
+								Serialize serialize = new Serialize();
+								CountersMap counters = new CountersMap();
+								counters = serialize.deserializeCountersMap();
 								
-								Toast.makeText(MainActivity.context, R.string.renamed, Toast.LENGTH_SHORT).show();
-
+								if(counters.contains(newCounterName)){
+									Toast.makeText(MainActivity.context, R.string.alreadyExists, Toast.LENGTH_SHORT).show();
+								}
+								else{
+									Counter openCounter = ActionBarHandler.getOpenCounter();
+									openCounter.renameCounter(newCounterName);
+	
+									Preferences userPreferences = new Preferences(MainActivity.context);
+									userPreferences.setLastOpenCounter(newCounterName);
+	
+									/*
+									 * Important note:
+									 * 
+									 * Must call the fragments to refresh display from within this code, since Android will continue running
+									 * other threads while it waits for the user to confirm their action.
+									 */
+	
+									CounterFragment.refreshDisplay();
+									SavedCounterFragment.refreshAdapter();
+									CounterSummaryFragment.refreshSummary();
+									
+									Toast.makeText(MainActivity.context, R.string.renamed, Toast.LENGTH_SHORT).show();
+								}
 							}
 						})
 
