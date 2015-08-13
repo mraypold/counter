@@ -22,47 +22,64 @@ public class RenameCounterAlert extends DialogFragment {
 
 		builder.setView(inflater.inflate(R.layout.rename_counter, null))
 				.setTitle(R.string.RenameCounterMessage)
-				.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-							
-					@Override
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
 							public void onClick(DialogInterface dialog, int id) {
 
-								EditText textField = (EditText) getDialog().findViewById(R.id.renameCounterTextField);
-								
-								String newCounterName = textField.getText().toString();
+								EditText textField = (EditText) getDialog()
+										.findViewById(
+												R.id.renameCounterTextField);
 
-								/* Check if a counter of this name exists already */
+								String newCounterName = textField.getText()
+										.toString();
+
+								/*
+								 * Check if a counter of this name exists
+								 * already
+								 */
 								Serialize serialize = new Serialize();
 								CountersMap counters = new CountersMap();
 								counters = serialize.deserializeCountersMap();
-								
-								if(counters.contains(newCounterName)){
-									Toast.makeText(MainActivity.context, R.string.alreadyExists, Toast.LENGTH_SHORT).show();
-								}
-								else{
-									Counter openCounter = ActionBarHandler.getOpenCounter();
+
+								if (counters.contains(newCounterName)) {
+									Toast.makeText(MainActivity.context,
+											R.string.alreadyExists,
+											Toast.LENGTH_SHORT).show();
+								} else {
+									Counter openCounter = ActionBarHandler
+											.getOpenCounter();
 									openCounter.renameCounter(newCounterName);
-	
-									Preferences userPreferences = new Preferences(MainActivity.context);
-									userPreferences.setLastOpenCounter(newCounterName);
-	
+
+									Preferences userPreferences = new Preferences(
+											MainActivity.context);
+									userPreferences
+											.setLastOpenCounter(newCounterName);
+
 									/*
 									 * Important note:
 									 * 
-									 * Must call the fragments to refresh display from within this code, since Android will continue running
-									 * other threads while it waits for the user to confirm their action.
+									 * Must call the fragments to refresh
+									 * display from within this code, since
+									 * Android will continue running other
+									 * threads while it waits for the user to
+									 * confirm their action.
 									 */
-	
+
 									CounterFragment.refreshDisplay();
 									SavedCounterFragment.refreshAdapter();
 									CounterSummaryFragment.refreshSummary();
-									
-									Toast.makeText(MainActivity.context, R.string.renamed, Toast.LENGTH_SHORT).show();
+
+									Toast.makeText(MainActivity.context,
+											R.string.renamed,
+											Toast.LENGTH_SHORT).show();
 								}
 							}
 						})
 
-				.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+				.setNegativeButton(R.string.cancel,
+						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								/* Do nothing */
 							}

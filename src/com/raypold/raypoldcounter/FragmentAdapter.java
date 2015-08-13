@@ -12,8 +12,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /* Adapter will take data and display fragments to screen */
-class FragmentAdapter extends FragmentPagerAdapter{
-	
+class FragmentAdapter extends FragmentPagerAdapter {
+
 	public FragmentAdapter(FragmentManager fm) {
 		super(fm);
 	}
@@ -21,7 +21,7 @@ class FragmentAdapter extends FragmentPagerAdapter{
 	@Override
 	public Fragment getItem(int arg0) {
 		Fragment fragment = null;
-		switch(arg0){
+		switch (arg0) {
 		case 0:
 			return fragment = new CounterFragment();
 		case 1:
@@ -29,7 +29,7 @@ class FragmentAdapter extends FragmentPagerAdapter{
 		case 2:
 			return fragment = new CounterSummaryFragment();
 		}
-		
+
 		return fragment;
 	}
 
@@ -37,5 +37,5 @@ class FragmentAdapter extends FragmentPagerAdapter{
 	public int getCount() {
 		return MainActivity.NUMBEROFTABS;
 	}
-	
+
 }

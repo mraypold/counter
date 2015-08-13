@@ -13,24 +13,28 @@ import java.util.LinkedHashSet;
  */
 
 public class DateOrderFrequency {
-	
+
 	/* LinkedHashSet is used to maintain order of dates */
-	/* HashMap is for speed since we will know the name when iterating over LinkedHashSet */
+	/*
+	 * HashMap is for speed since we will know the name when iterating over
+	 * LinkedHashSet
+	 */
 	private LinkedHashSet<String> dateSet;;
 	private HashMap<String, Integer> dateMap;
-	
-	public DateOrderFrequency(LinkedHashSet<String> dateSet, HashMap<String, Integer> dateMap) {
+
+	public DateOrderFrequency(LinkedHashSet<String> dateSet,
+			HashMap<String, Integer> dateMap) {
 		super();
 		this.dateSet = dateSet;
 		this.dateMap = dateMap;
 	}
-	
+
 	public LinkedHashSet<String> getDateSet() {
 		return dateSet;
 	}
-	
+
 	public HashMap<String, Integer> getDateMap() {
 		return dateMap;
 	}
-	
+
 }

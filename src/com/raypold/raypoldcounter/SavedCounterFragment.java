@@ -34,7 +34,7 @@ public class SavedCounterFragment extends Fragment {
 	private static ListView list;
 	private static ArrayAdapter<String> adapter;
 	private static Activity activity;
-	
+
 	public SavedCounterFragment() {
 
 	}
@@ -42,72 +42,76 @@ public class SavedCounterFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		inflatedView = inflater.inflate(R.layout.fragment_saved_counter, container,
-				false);
+		inflatedView = inflater.inflate(R.layout.fragment_saved_counter,
+				container, false);
 
 		activity = this.getActivity();
 
 		refreshAdapter();
-		
+
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int selectedCounter,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int selectedCounter, long arg3) {
 
 				/* Open the ordered list of counters */
 				Serialize serialize = new Serialize();
 				CountersMap counters = serialize.deserializeCountersMap();
-				
-				ArrayList<String>orderedList = counters.getOrderedList();
+
+				ArrayList<String> orderedList = counters.getOrderedList();
 
 				String counterName = orderedList.get(selectedCounter);
-				
+
 				/* Set the new open counter */
-				Preferences userPreferences = new Preferences(MainActivity.context);
+				Preferences userPreferences = new Preferences(
+						MainActivity.context);
 				userPreferences.setLastOpenCounter(counterName);
-				
+
 				/* Referesh the displays */
 				CounterFragment.refreshDisplay();
 				SavedCounterFragment.refreshAdapter();
 				CounterSummaryFragment.refreshSummary();
-				
+
 				/* Display switched message */
-				Toast.makeText(MainActivity.context, getString(R.string.switchedCounters) + 
-						" " + counterName, Toast.LENGTH_SHORT).show();
-				
-			}	
+				Toast.makeText(
+						MainActivity.context,
+						getString(R.string.switchedCounters) + " "
+								+ counterName, Toast.LENGTH_SHORT).show();
+
+			}
 		});
-		
+
 		return inflatedView;
 	}
-	
+
 	public static void refreshAdapter() {
-		//CountersMap counters = new CountersMap();
+		// CountersMap counters = new CountersMap();
 		Serialize serialize = new Serialize();
 		CountersMap counters = serialize.deserializeCountersMap();
-		
+
 		items = counters.getOrderedList();
-		
-		/* Concatenate the strings so we don't need a custom array adapter for a simple alteration */
+
+		/*
+		 * Concatenate the strings so we don't need a custom array adapter for a
+		 * simple alteration
+		 */
 		ArrayList<String> concatItems = new ArrayList<String>();
-		
-		for(int i = 0; i < items.size(); i++){
+
+		for (int i = 0; i < items.size(); i++) {
 			String counterName = items.get(i);
-			concatItems.add(i, 
-					counterName +
-					"       " +
-					counters.getCount(counterName));
+			concatItems.add(i,
+					counterName + "       " + counters.getCount(counterName));
 		}
-		
+
 		items = concatItems;
-		
+
 		adapter = new ArrayAdapter<String>(activity, R.layout.saved_item, items);
-		
-		list = (ListView)inflatedView.findViewById(R.id.listViewSavedCounters);
+
+		list = (ListView) inflatedView.findViewById(R.id.listViewSavedCounters);
 		list.setAdapter(adapter);
-		
+
 		adapter.notifyDataSetChanged();
 	}
-	
+
 }

@@ -18,9 +18,9 @@ import java.io.ObjectOutputStream;
 import android.app.Activity;
 
 public class Serialize extends Activity {
-	
+
 	private final String COUNTERSFILE = "countersFile.dat";
-    
+
 	/* Serialize the counter class with the name of the counter as the filename */
 	public void serializeCounter(Counter counter) {
 		try {
@@ -34,8 +34,7 @@ public class Serialize extends Activity {
 			objectStream.flush();
 			objectStream.close();
 			fileStream.close();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -43,27 +42,28 @@ public class Serialize extends Activity {
 	/* Serialize the counter map containing a map of all created counters */
 	public void serializeCountersMap(CountersMap counters) {
 		try {
-			FileOutputStream fileStream = MainActivity.context.openFileOutput(COUNTERSFILE, 0);
+			FileOutputStream fileStream = MainActivity.context.openFileOutput(
+					COUNTERSFILE, 0);
 			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 			objectStream.writeObject(counters);
-			
+
 			fileStream.flush();
 			objectStream.flush();
 			objectStream.close();
 			fileStream.close();
-		}
-		catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/* Return a counter after deserializing with the specified counter name */
 	/* Counter name is first retrieved either from CountersMap of Preferences */
 	public Counter deserializeCounter(String counterName) {
 		Counter counter = new Counter(counterName);
 
 		try {
-			FileInputStream fileStream = MainActivity.context.openFileInput(counterName.concat(".dat"));
+			FileInputStream fileStream = MainActivity.context
+					.openFileInput(counterName.concat(".dat"));
 			ObjectInputStream objectStream = new ObjectInputStream(fileStream);
 
 			counter = (Counter) objectStream.readObject();
@@ -72,46 +72,42 @@ public class Serialize extends Activity {
 			fileStream.close();
 
 			return counter;
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		catch (ClassNotFoundException c) {
+		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
 		}
-		
+
 		return counter;
 	}
 
 	public CountersMap deserializeCountersMap() {
 		try {
-			FileInputStream fileStream = MainActivity.context.openFileInput(COUNTERSFILE);
+			FileInputStream fileStream = MainActivity.context
+					.openFileInput(COUNTERSFILE);
 			ObjectInputStream objectStream = new ObjectInputStream(fileStream);
 
 			CountersMap map = (CountersMap) objectStream.readObject();
 
 			objectStream.close();
 			fileStream.close();
-			
+
 			return map;
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		catch (ClassNotFoundException c) {
+		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
 		}
 		CountersMap map = new CountersMap();
 		return map;
 	}
-	
+
 	/* Permanently delete counter file from disk */
 	public void deleteCounterFile(String counterName) {
 		try {
 			File counter = new File(counterName.concat(".dat"));
 			counter.delete();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

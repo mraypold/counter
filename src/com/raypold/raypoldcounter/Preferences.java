@@ -19,7 +19,7 @@ public class Preferences {
 	private final String PREFERENCESFILE = "userPreferences";
 
 	private SharedPreferences userPreferences;
-	
+
 	private String lastOpenCounter = null;
 	private Boolean firstRun = false;
 
@@ -27,14 +27,14 @@ public class Preferences {
 		super();
 		setUserPreferences(context.getSharedPreferences(PREFERENCESFILE, 0));
 	}
-	
+
 	public String getLastOpenCounter() {
 		return userPreferences.getString(LASTOPENCOUNTERKEY, lastOpenCounter);
 	}
 
 	public void setLastOpenCounter(String lastOpenCounter) {
 		this.lastOpenCounter = lastOpenCounter;
-		
+
 		/* Save lastOpenCounter to disk */
 		Editor editor = userPreferences.edit();
 		editor.putString(LASTOPENCOUNTERKEY, lastOpenCounter);
@@ -48,29 +48,27 @@ public class Preferences {
 	public void setUserPreferences(SharedPreferences preferences) {
 		this.userPreferences = preferences;
 	}
-	
+
 	/* Prefererences for how the user wants to view the list of counter dates */
 	public void setDisplayCountsType(int type) {
-		/* hour = 0
-		 * day = 1
-		 * week = 2
-		 * month = 3
+		/*
+		 * hour = 0 day = 1 week = 2 month = 3
 		 */
 		Editor editor = userPreferences.edit();
 		editor.putInt(DISPLAYCOUNTSTYPE, type);
 		editor.commit();
 	}
-	
+
 	/* Returns hour, day, week, month date preferences */
 	public int getDisplayCountsType() {
 		return userPreferences.getInt(DISPLAYCOUNTSTYPE, 0);
 	}
-	
+
 	/* Responds true if first time application has run */
 	public Boolean isFirstRun() {
 		return userPreferences.getBoolean(FIRSTRUN, true);
 	}
-	
+
 	public void setFirstRun() {
 		Editor editor = userPreferences.edit();
 		editor.putBoolean(FIRSTRUN, firstRun);

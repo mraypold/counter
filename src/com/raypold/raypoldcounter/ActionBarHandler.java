@@ -17,17 +17,17 @@ public class ActionBarHandler extends MainActivity {
 	private MenuItem item;
 	private static Context context;
 	private static String openCounterName;
-	
+
 	public ActionBarHandler(MenuItem item, Context applicationContext) {
 		super();
 		this.item = item;
 		ActionBarHandler.context = applicationContext;
 		setOpenCounterName();
 	}
-	
+
 	/* Respond to the icon that the user clicked */
 	public boolean getAction() {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		case R.id.reset_counter:
 			resetCounter();
 			return true;
@@ -42,29 +42,32 @@ public class ActionBarHandler extends MainActivity {
 			return true;
 		}
 		return false;
-	}	
-	
-	private void resetCounter() {	
+	}
+
+	private void resetCounter() {
 		ResetCounterAlert resetAlert = new ResetCounterAlert();
 		resetAlert.show(MainActivity.getFragment(), "ResetCounterAlert");
 	}
-	
+
 	private void renameCounter() {
-        RenameCounterAlert renameAlert = new RenameCounterAlert();
-        renameAlert.show(MainActivity.getFragment(), "RenameCounterAlert");        
+		RenameCounterAlert renameAlert = new RenameCounterAlert();
+		renameAlert.show(MainActivity.getFragment(), "RenameCounterAlert");
 	}
-	
+
 	private void newCounter() {
-        NewCounterAlert newAlert = new NewCounterAlert();
-        newAlert.show(MainActivity.getFragment(), "newCounterAlert");        
+		NewCounterAlert newAlert = new NewCounterAlert();
+		newAlert.show(MainActivity.getFragment(), "newCounterAlert");
 	}
-	
+
 	private void deleteCounter() {
-        DeleteCounterAlert deleteAlert = new DeleteCounterAlert();
-        deleteAlert.show(MainActivity.getFragment(), "deleteCounterAlert");        
+		DeleteCounterAlert deleteAlert = new DeleteCounterAlert();
+		deleteAlert.show(MainActivity.getFragment(), "deleteCounterAlert");
 	}
-	
-	/* Intention of this method is to not have an openCounter attribute in the actionBar wasting memory all the time */
+
+	/*
+	 * Intention of this method is to not have an openCounter attribute in the
+	 * actionBar wasting memory all the time
+	 */
 	/* ActionBar buttons are not clicked very often */
 	public static Counter getOpenCounter() {
 		setOpenCounterName(); /* Ensure we have the most recent open counter */
@@ -73,7 +76,7 @@ public class ActionBarHandler extends MainActivity {
 
 		return openCounter;
 	}
-	
+
 	private static void setOpenCounterName() {
 		Preferences userPreferences = new Preferences(context);
 		openCounterName = userPreferences.getLastOpenCounter();
